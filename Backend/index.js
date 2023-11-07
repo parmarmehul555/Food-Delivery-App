@@ -7,7 +7,7 @@ const User = require('./modals/User');
 mongoose.connect('mongodb+srv://MehulParmar:Mehul3451@cluster0.ij80lvl.mongodb.net/food_Delivery?retryWrites=true&w=majority')
     .then(() => {
         const app = express();
-        app.use(bodyParser.urlencoded({ extended: false }))
+        app.use(bodyParser.urlencoded({ extended: false }));
         app.use('/food/auth', require('./routes/auth'));
 
         app.listen(3030, () => {

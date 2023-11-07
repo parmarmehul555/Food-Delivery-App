@@ -30,15 +30,54 @@ router.post('/signup', async (req, res) => {
 
         await user.save();
 
-        const tokenData = {
+        const payload = {
             id: user._id,
             username: user.username,
             password: user.password
         }
 
-        const token = jwt.sign(tokenData, JWT_SEC);
+        const token = jwt.sign(payload, JWT_SEC);
         res.status(200).json({ token });
     }
-})
+});
+
+// User login route : 
+
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const isUser = await User.findOne({ email });
+
+        if (!isUser) {
+            return res.status(400).send(false);
+        }
+
+        const checkPass = await bcrypt.compare(password, isUser.password);
+
+        if (!checkPass) {
+            return res.status(400).send(false);
+        }
+        const payload = {
+            id: isUser._id,
+            email: isUser.email,
+            password: isUser.password
+        }
+
+        const token = jwt.sign(payload, JWT_SEC);
+        res.status(200).json(token);
+    } catch (error) {
+        console.log("ERROR MSG : ", error);
+    }
+});
+
+// GET user details
+router.post('/user', async (req, res) => {
+    try {
+        const isUser = User.findById(user_id).select('-password');
+    } catch (error) {
+        console.log("ERROR MSG : ", error);
+    }
+});
 
 module.exports = router;
