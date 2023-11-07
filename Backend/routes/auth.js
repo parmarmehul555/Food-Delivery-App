@@ -3,11 +3,11 @@ const User = require('../modals/User');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-
+const userLogedIn = require('../middleware/userLogedIn');
 const JWT_SEC = 'meh$#2005!';
 
-// User sign up  route:
 
+// User sign up  route:
 router.post('/signup', async (req, res) => {
     const { userName, email, password } = req.body;
 
@@ -42,7 +42,6 @@ router.post('/signup', async (req, res) => {
 });
 
 // User login route : 
-
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
@@ -63,6 +62,7 @@ router.post('/login', async (req, res) => {
             email: isUser.email,
             password: isUser.password
         }
+        console.log(payload);
 
         const token = jwt.sign(payload, JWT_SEC);
         res.status(200).json(token);
@@ -72,9 +72,14 @@ router.post('/login', async (req, res) => {
 });
 
 // GET user details
-router.post('/user', async (req, res) => {
+router.get('/user', userLogedIn, async (req, res) => {
     try {
-        const isUser = User.findById(user_id).select('-password');
+        const user_id = req.user.id;
+        const isUser = await User.findById(user_id).select('-password');
+        if (!isUser) {
+            return res.status(404).send({ error: 'User not found!' });
+        }
+        res.send(isUser);
     } catch (error) {
         console.log("ERROR MSG : ", error);
     }
