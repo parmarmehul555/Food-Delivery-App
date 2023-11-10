@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const orderSchema = mongoose.Schema({
+    customerDetails: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     foodName: {
         type: String,
         required: true
@@ -9,15 +14,11 @@ const orderSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    customerDetails: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
+
     customerAddress: {
         type: String,
         required: true
     }
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Order', orderSchema);

@@ -36,7 +36,7 @@ router.post('/signup', async (req, res) => {
             password: user.password
         }
 
-        const token = jwt.sign(payload, JWT_SEC);
+        const token = jwt.sign(payload, process.env.JWT_SEC);
         res.status(200).json({ token });
     }
 });
@@ -64,7 +64,7 @@ router.post('/login', async (req, res) => {
         }
         console.log(payload);
 
-        const token = jwt.sign(payload, JWT_SEC);
+        const token = jwt.sign(payload, process.env.JWT_SEC);
         res.status(200).json(token);
     } catch (error) {
         console.log("ERROR MSG : ", error);

@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
 
 const restorentSchema = mongoose.Schema({
+    ownerName : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'Seller'
+    },
+    orders : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'Order' 
+    },
     restorentName : {
         type : String,
         required : true
