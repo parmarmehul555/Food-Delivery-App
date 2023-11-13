@@ -12,6 +12,7 @@ const uploadCloudinary = async (localFilePath) => {
         const result = await cloudinary.v2.uploader.upload(localFilePath, {
             resource_type: "auto"
         });
+        console.log(result);
         return result.secure_url;
     } catch (err) {
         console.log("ERROR ", err);
