@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Seller = require('../modals/Seller');
 const sellerLogedIn = require('../middleware/sellerLogedIn');
+const JWT_SEC = 'meh$#2005!';
 
 // Seller Sign  Up route
 router.post('/signup', async (req, res) => {
@@ -29,10 +30,11 @@ router.post('/signup', async (req, res) => {
             id: newSeller._id,
         };
 
-        const token = jwt.sign(payload, process.env.JWT_SEC);
-        res.status(200).json({ "token": token });
+        const token = jwt.sign(payload, JWT_SEC);
+        res.status(200).json({ token });
     } catch (error) {
-        res.status(401).json({ "error": error });
+        console.log("Error",error );
+        res.status(500).send({ "error": error });
     }
 });
 
@@ -58,7 +60,7 @@ router.post('/login', async (req, res) => {
             id: isSeller._id,
         };
 
-        const token = jwt.sign(payload, process.env.JWT_SEC);
+        const token = jwt.sign(payload, JWT_SEC);
         res.status(200).send({ "token": token });
     } catch (error) {
         res.status(401).json({ "error": error });

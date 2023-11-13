@@ -9,7 +9,7 @@ mongoose.connect('mongodb+srv://MehulParmar:Mehul3451@cluster0.ij80lvl.mongodb.n
         const app = express();
         app.use(bodyParser.urlencoded({ extended: false }));
         app.use('/food/auth', require('./routes/auth'),require('./routes/orders'));
-        app.use('/restorent/seller', require('./routes/seller'));
+        app.use('/restorent/seller', require('./routes/seller'),require('./routes/food'));
         // app.use('/user/food', require('./routes/orders'));
 
         app.listen(3030, () => {
