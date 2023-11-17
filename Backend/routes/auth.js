@@ -4,7 +4,8 @@ const bcrypt = require('bcryptjs');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const userLogedIn = require('../middleware/userLogedIn');
-const JWT_SEC = 'meh$#2005!';
+const JWT_SEC = 'meh$2005!';
+
 
 
 // User sign up  route:
@@ -15,8 +16,7 @@ router.post('/signup', async (req, res) => {
 
     if (isUser) {
         console.log(isUser);
-        res.status(401).send(false);
-        return;
+        return res.status(401).send(false);
     }
     else {
 
@@ -36,7 +36,7 @@ router.post('/signup', async (req, res) => {
             password: user.password
         }
 
-        const token = jwt.sign(payload, process.env.JWT_SEC);
+        const token = jwt.sign(payload, JWT_SEC);
         res.status(200).json({ token });
     }
 });
@@ -64,7 +64,7 @@ router.post('/login', async (req, res) => {
         }
         console.log(payload);
 
-        const token = jwt.sign(payload, process.env.JWT_SEC);
+        const token = jwt.sign(payload, JWT_SEC);
         res.status(200).json(token);
     } catch (error) {
         console.log("ERROR MSG : ", error);
@@ -84,5 +84,39 @@ router.get('/user', userLogedIn, async (req, res) => {
         console.log("ERROR MSG : ", error);
     }
 });
+
+// UPDATE user's password 
+router.post('/changepassword', userLogedIn, async (req, res) => {
+    try {
+        const { email, password, newPassword } = req.body;
+        const user = req.user;
+        const id = req.user.id;
+        const isUser = await User.findById({ _id: id });
+
+        if ((isUser.email != email)) {
+            return res.status(401).json({ "ERROR ": "Invalid Email address!!" });
+        }
+        console.log(isUser);
+
+        const checkPass = await bcrypt.compare(password, user.password);
+
+        if (!checkPass) {
+            return res.status(401).json({ "ERROR ": "User not found!!" });
+        }
+
+        const newPass = await bcrypt.hash(newPassword, 10);
+        await User.findOneAndUpdate({ _id: req.user.id }, { $set: { password: newPass } });
+
+        const payload = {
+            id: User._id,
+            username: User.username,
+            password: User.password
+        }
+        const token = jwt.sign(payload, JWT_SEC);
+        res.status(200).json({ token });
+    } catch (error) {
+        return res.status(500).json({ "ERROR ": "Internal server error" });
+    }
+})
 
 module.exports = router;
