@@ -31,9 +31,9 @@ router.post('/signup', async (req, res) => {
         };
 
         const token = jwt.sign(payload, JWT_SEC);
-        res.status(200).json({ token });
+        res.status(200).send({ seller, token });
     } catch (error) {
-        console.log("Error",error );
+        console.log("Error", error);
         res.status(500).send({ "error": error });
     }
 });
@@ -61,7 +61,7 @@ router.post('/login', async (req, res) => {
         };
 
         const token = jwt.sign(payload, JWT_SEC);
-        res.status(200).send({ "token": token });
+        res.status(200).send({ isSeller, token });
     } catch (error) {
         res.status(401).json({ "error": error });
     }
@@ -76,7 +76,7 @@ router.get('/sellerdetails', sellerLogedIn, async (req, res) => {
         if (!isSeller) {
             return res.status(404).send({ error: 'User not found!' });
         }
-        res.status(200).send(isSeller);
+        res.status(200).send({ isSeller, token });
     }
     catch (err) {
         res.status(401).json({ "Error ": err });

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital@1&display=swap');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +12,50 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/*CSS of Layout */
+.logo {
+  height: 10vh;
+  width: 18vh;
+}
+
+.logo img {
+  object-fit: contain;
+  width: 115%;
+  height: 225%;
+  margin-top: -6vh;
+  margin-left: -2vh;
+}
+
+/* CSS of Home */
+.home {
+  background-image: url('https://plus.unsplash.com/premium_photo-1679434184867-a294eb85400c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  height: 90vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.home-msg{
+  font-size: 50px;
+  color: white;
+  font-family: 'EB Garamond', serif;
+}
+
+.home-msg text{
+  font-family: 'EB Garamond', serif;
+}
+
+.home-msg span{
+  color: orange;
+}
+
+#darkBg{
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

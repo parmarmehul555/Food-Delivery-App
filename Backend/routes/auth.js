@@ -6,8 +6,6 @@ const jwt = require('jsonwebtoken');
 const userLogedIn = require('../middleware/userLogedIn');
 const JWT_SEC = 'meh$2005!';
 
-
-
 // User sign up  route:
 router.post('/signup', async (req, res) => {
     const { userName, email, password } = req.body;
@@ -37,17 +35,18 @@ router.post('/signup', async (req, res) => {
         }
 
         const token = jwt.sign(payload, JWT_SEC);
-        res.status(200).json({ token });
+        res.status(200).send({ user, token });
     }
 });
 
 // User login route : 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
+    console.log("Email : ",email);
 
     try {
         const isUser = await User.findOne({ email });
-
+        console.log(isUser)
         if (!isUser) {
             return res.status(400).send(false);
         }
@@ -65,7 +64,7 @@ router.post('/login', async (req, res) => {
         console.log(payload);
 
         const token = jwt.sign(payload, JWT_SEC);
-        res.status(200).json(token);
+        res.status(200).send({ isUser, token });
     } catch (error) {
         console.log("ERROR MSG : ", error);
     }
@@ -79,7 +78,7 @@ router.get('/user', userLogedIn, async (req, res) => {
         if (!isUser) {
             return res.status(404).send({ error: 'User not found!' });
         }
-        res.send(isUser);
+        res.send({ isUser, token });
     } catch (error) {
         console.log("ERROR MSG : ", error);
     }
@@ -113,7 +112,7 @@ router.post('/changepassword', userLogedIn, async (req, res) => {
             password: User.password
         }
         const token = jwt.sign(payload, JWT_SEC);
-        res.status(200).json({ token });
+        res.status(200).send({ isUser, token });
     } catch (error) {
         return res.status(500).json({ "ERROR ": "Internal server error" });
     }
