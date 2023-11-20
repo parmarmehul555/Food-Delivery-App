@@ -9,6 +9,8 @@ const JWT_SEC = 'meh$2005!';
 // User sign up  route:
 router.post('/signup', async (req, res) => {
     const { userName, email, password } = req.body;
+    console.log("email outside hash", email);
+    console.log("passwor outside hash", password);
 
     const isUser = await User.findOne({ email });
 
@@ -17,6 +19,7 @@ router.post('/signup', async (req, res) => {
         return res.status(401).send(false);
     }
     else {
+        console.log("passwor inside hash", password);
 
         const hashedPass = await bcrypt.hash(password, 5);
 
@@ -35,14 +38,14 @@ router.post('/signup', async (req, res) => {
         }
 
         const token = jwt.sign(payload, JWT_SEC);
-        res.status(200).send({ user, token });
+        res.status(200).json({ token });
     }
 });
 
 // User login route : 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
-    console.log("Email : ",email);
+    console.log("Email : ", email);
 
     try {
         const isUser = await User.findOne({ email });
@@ -64,7 +67,7 @@ router.post('/login', async (req, res) => {
         console.log(payload);
 
         const token = jwt.sign(payload, JWT_SEC);
-        res.status(200).send({ isUser, token });
+        res.status(200).json({ token });
     } catch (error) {
         console.log("ERROR MSG : ", error);
     }
@@ -103,7 +106,7 @@ router.post('/changepassword', userLogedIn, async (req, res) => {
             return res.status(401).json({ "ERROR ": "User not found!!" });
         }
 
-        const newPass = await bcrypt.hash(newPassword, 10);
+        const newPass = await bcrypt.hash(newPassword, 5);
         await User.findOneAndUpdate({ _id: req.user.id }, { $set: { password: newPass } });
 
         const payload = {
@@ -112,7 +115,7 @@ router.post('/changepassword', userLogedIn, async (req, res) => {
             password: User.password
         }
         const token = jwt.sign(payload, JWT_SEC);
-        res.status(200).send({ isUser, token });
+        res.status(200).send({ token });
     } catch (error) {
         return res.status(500).json({ "ERROR ": "Internal server error" });
     }

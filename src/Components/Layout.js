@@ -6,7 +6,7 @@ export default function Layout() {
         <>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid">
-                <a class="navbar-brand" href="#">BityBuddy</a>
+                <a className="navbar-brand" href="#">BityBuddy</a>
                     {/* <div className='logo'><img src="https://o.remove.bg/downloads/0d9c5319-f94b-4ca3-8de2-9eb01916f6a7/48712595597_4f09c9071d_w-removebg-preview.png" alt="logo"></img></div> */}
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>

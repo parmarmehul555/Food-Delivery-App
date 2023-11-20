@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route path='/food/auth' element={<Layout />}>
+      <Route path='/' element={<Layout />}>
         <Route index element={<Home />}></Route>
         <Route path='/food/auth/login' element={<UserModelProvider isLogin="true" />} />
         <Route path='/food/auth/signup' element={<UserModelProvider />} />
