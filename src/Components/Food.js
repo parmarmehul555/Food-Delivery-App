@@ -5,11 +5,12 @@ export default function Food(){
     
     let formattedData = food.map((item)=>{
         return(
+            <>
             <h1>{item.foodName}</h1>
+            <img src={item.foodImg}/>
+            </>
         )
     })
-    console.log("=========",food);
-    console.log("------------",formattedData);
     
     return(
         <>

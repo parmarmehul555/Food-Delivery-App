@@ -44,7 +44,6 @@ router.post('/login', async (req, res) => {
         const { email, password } = req.body;
 
         const isSeller = await Seller.findOne({ sellerEmail: email });
-        console.log(isSeller);
 
         if (!isSeller) {
             return res.status(404).json({ "msg : ": "user not found" });

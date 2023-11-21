@@ -116,4 +116,12 @@ code {
   outline: none !important;
 }
 
+#logOutBtn{
+  display: none;
+}
+
+#logOutBtn.active{
+  display: block;
+}
+
 /* #e6b36c */

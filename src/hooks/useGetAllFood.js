@@ -1,22 +1,23 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function useGetAllFood() {
     const [food, setFood] = useState([]);
+    const token = localStorage.getItem("auth-token");
     useEffect(() => {
         fetch("http://localhost:3030/restorent/seller/foods", {
             method: "GET",
             headers: {
-                'Content-Type': 'application/json'
-                "auth"
+                'Content-Type': 'application/json',
+                'authorization' : `bearer ${token}`
             }
         })
             .then((res) => {
-                console.log("Res is ",res);
-                if(res.ok){
+                if (res.ok) {
                     return res.json();
                 }
-                else{
+                else {
                     console.log(("Some error occured!"));
                     throw new Error("Faild to fetch");
                 }
@@ -24,8 +25,8 @@ function useGetAllFood() {
             .then((res) => {
                 setFood(res);
             })
-            .catch((err)=>{
-                console.log("ERROR in fetching food ",err);
+            .catch((err) => {
+                console.log("ERROR in fetching food ", err);
             })
     }, []);
     return [food, setFood];

@@ -14,8 +14,7 @@ export default function UserModelProvider(props) {
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
-                'Content-Type': 'application/json',
-                "authorization": `bearear ${token}`
+                'Content-Type': 'application/json'
             }
         })
             .then((res) => {

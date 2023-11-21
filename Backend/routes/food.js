@@ -1,5 +1,6 @@
 const express = require('express');
 const Food = require('../modals/Food');
+const Seller = require('../modals/Seller');
 const router = express.Router();
 const sellerLogedIn = require('../middleware/sellerLogedIn');
 const upload = require('../middleware/multer');
@@ -23,8 +24,9 @@ router.post('/fooddetails',
         const { name, price, description, img, type } = req.body;
 
         const food = new Food();
+        const seller = await Seller.findOne({ _id: req.seller.id });
 
-        food.sellerName = req.seller.id;
+        food.sellerName = seller.sellerName;
         food.foodName = name;
         food.foodPrice = price;
         food.foodDescription = description;

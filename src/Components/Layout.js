@@ -1,4 +1,4 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, } from 'react-router-dom';
 import '../index.css';
 
 export default function Layout() {
@@ -13,7 +13,7 @@ export default function Layout() {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link className="nav-link" aria-current="page" to={localStorage.getItem('auth-token')?'/user':'/food/auth/login'}>Home</Link>
+                                <Link className="nav-link" aria-current="page" to={localStorage.getItem('auth-token') ? '/user' : '/food/auth/login'}>Home</Link>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Link</a>

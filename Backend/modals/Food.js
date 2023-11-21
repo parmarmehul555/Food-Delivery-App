@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const foodSchema = mongoose.Schema({
     sellerName: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Seller'
+        type : String,
+        required: true
     },
     foodName: {
         type: String,
