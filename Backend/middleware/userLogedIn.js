@@ -8,9 +8,9 @@ const userLogedIn = async (req, res, next) => {
     if (!token) return res.status(401).send('token not exists!');
 
     jwt.verify(token, JWT_SEC, (err, user) => {
-        if (err) {
-            return res.status(403).json({"ERROR " : err});
-        }
+        // if (err) {
+        //     return res.status(403).json({"ERROR " : err});
+        // }
         req.user = user;
         next();
     });

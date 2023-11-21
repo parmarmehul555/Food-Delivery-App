@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const foodSchema = mongoose.Schema({
-    sellerName : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : 'Seller'
+    sellerName: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Seller'
     },
     foodName: {
         type: String,
@@ -14,14 +14,14 @@ const foodSchema = mongoose.Schema({
         required: true,
         default: 0
     },
-    foodDescription:{
-        type : String,
-        required : true,
-    },
-    foodImg : {
-        type : String,
+    foodDescription: {
+        type: String,
         required: true,
-        default : null
+    },
+    foodImg: {
+        type: String,
+        required: true,
+        default: null
     },
     foodType: {
         type: String,

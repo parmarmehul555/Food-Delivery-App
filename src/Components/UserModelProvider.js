@@ -1,21 +1,25 @@
+import { useContext, } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import userContext from "../context/userContext";
+import '../index.css';
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
 export default function UserModelProvider(props) {
-    const [user, setUser] = useState({});
-    const [authToken, setAuthToken] = useState("");
-    console.log(user);
+    const { user, setUser } = useContext(userContext);
+    const [token, setToken] = useState("");
+    const navigate = useNavigate();
+
     function login() {
         fetch('http://localhost:3030/food/auth/login', {
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
-                'Content-Type': 'application/json'
-                // 'authorization': `bearer ${token}`
+                'Content-Type': 'application/json',
+                "authorization": `bearear ${token}`
             }
         })
             .then((res) => {
-                if (res.status == 200) {
+                if (res.ok) {
                     return res.json();
                 }
                 else {
@@ -23,22 +27,15 @@ export default function UserModelProvider(props) {
                     throw new Error("login faild");
                 }
             })
-            .then((res) => {
-                try {
-                    if (res.status == 200) {
-                        const { token } = res;
-                        // setUser(res);
-                        setAuthToken(token);
-                    }
-                } catch (err) {
-                    console.log("Error is while setting token  " + err)
-                }
+            .then(async (res) => {
+                const token = await res.token;
+                localStorage.setItem("auth-token", token);
+                localStorage.getItem("auth-token") ? navigate('/user') : navigate('//food/auth/signup');
             })
             .catch((error) => {
                 console.error("Error during login:", error);
             });
-        console.log("fsd", user);
-        console.log("Token ", authToken);
+        setToken(localStorage.getItem("auth-token"))
     }
 
     function signup() {
@@ -47,32 +44,23 @@ export default function UserModelProvider(props) {
             body: JSON.stringify(user),
             headers: {
                 'Content-Type': 'application/json'
-                // 'authorization': `bearer ${token}`
             }
         })
             .then((res) => {
-                if (res.status == 200) {
+                if (res.ok) {
                     return res.json();
                 }
                 else {
                     console.log("Some errror occured!!");
+                    throw new Error("signup faild!!");
                 }
             })
             .then((res) => {
-                if (res.status == 200) {
-                    const { token } = res;
-                    // setUser(user);
-                    setAuthToken(token);
-                }
-                else {
-                    console.log("some error occured!!");
-                }
+                navigate('/food/auth/login');
             })
             .catch((error) => {
                 console.error("Error during signup:", error);
             });
-        console.log("fsd", user);
-        console.log("Token ", authToken);
     }
 
     const sendModel = () => {
@@ -86,38 +74,48 @@ export default function UserModelProvider(props) {
 
     return (
         <>
-            {
-                props.isLogin ?
-                    <>
-                        <input type="text" placeholder="email" onChange={(e) => {
-                            e.preventDefault();
-                            setUser({ ...user, email: e.target.value });
-                        }} />
-                        <input type="text" placeholder="password" onChange={(e) => {
-                            e.preventDefault();
-                            setUser({ ...user, password: e.target.value });
-                        }} />
-                        <button type="submit" className="btn btn-primary" onClick={sendModel}>Log in</button>
-                        <p>Don't have an account?<Link to={'/food/auth/signup'}>Sign up</Link></p>
+            <div id="img">
+                <img src="https://www.svapinfotech.com/data/media/orginal/food-delivery-2-5459.jpg" alt="img" />
+                {
+                    props.isLogin ?
+                        <>
+                            <div className='login' id='login'>
+                                <h2>Log in</h2>
+                                <input type="text" className='ip' style={{ marginBottom: "3vh" }} placeholder="email" onChange={(e) => {
+                                    e.preventDefault();
+                                    setUser({ ...user, email: e.target.value });
+                                }} />
+                                <i class="fa-solid fa-envelope" style={{ color: "white", marginLeft: "-2vh" }}></i><br />
+                                <input type="password" className='ip' style={{ marginBottom: "5vh" }} placeholder="password" onChange={(e) => {
+                                    e.preventDefault();
+                                    setUser({ ...user, password: e.target.value });
+                                }} /><i class="fa-solid fa-lock" style={{ color: "white", marginLeft: "-2vh" }}></i><br />
+                                <button type="submit" className="btn btn-primary" onClick={sendModel} style={{ width: "70%", borderRadius: "50px", marginBottom: "2vh" }}>Log in</button>
+                                <p style={{ color: "white" }}>Don't have an account?<Link to={'/food/auth/signup'}>Sign up</Link></p>
+                            </div>
 
-                    </> :
-                    <>
-                        <input type="text" placeholder="User Name" onChange={(e) => {
-                            e.preventDefault();
-                            setUser({ ...user, userName: e.target.value });
-                        }} />
-                        <input type="text" placeholder="email" onChange={(e) => {
-                            e.preventDefault();
-                            setUser({ ...user, email: e.target.value });
-                        }} />
-                        <input type="text" placeholder="password" onChange={(e) => {
-                            e.preventDefault();
-                            setUser({ ...user, password: e.target.value });
-                        }} />
-                        <button className="btn btn-primary" onClick={sendModel}>sign up</button>
-                        <p>already have an account? <Link to={'/food/auth/login'}>log in</Link></p>
-                    </>
-            }
+                        </> :
+                        <>
+                            <div className='signup' id='sigup'>
+                                <h2>Sign up</h2>
+                                <input type="text" className='ip' placeholder="User Name" onChange={(e) => {
+                                    e.preventDefault();
+                                    setUser({ ...user, userName: e.target.value });
+                                }} /><i class="fa-solid fa-user" style={{ color: "white", marginLeft: "-2vh" }}></i><br />
+                                <input type="text" className='ip' placeholder="email" onChange={(e) => {
+                                    e.preventDefault();
+                                    setUser({ ...user, email: e.target.value });
+                                }} /><i class="fa-solid fa-envelope" style={{ color: "white", marginLeft: "-2vh" }}></i><br />
+                                <input type="text" className='ip' style={{ marginBottom: "4vh" }} placeholder="password" onChange={(e) => {
+                                    e.preventDefault();
+                                    setUser({ ...user, password: e.target.value });
+                                }} /><i class="fa-solid fa-lock" style={{ color: "white", marginLeft: "-2vh" }}></i><br />
+                                <button className="btn btn-primary" onClick={sendModel} style={{ width: "70%", borderRadius: "50px", marginBottom: "2vh" }}>sign up</button>
+                                <p style={{ color: "white" }}>already have an account? <Link to={'/food/auth/login'}>log in</Link></p>
+                            </div>
+                        </>
+                }
+            </div>
         </>
     );
 }
