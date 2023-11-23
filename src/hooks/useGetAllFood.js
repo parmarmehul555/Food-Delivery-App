@@ -1,16 +1,17 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 function useGetAllFood() {
     const [food, setFood] = useState([]);
     const token = localStorage.getItem("auth-token");
+    const dispatch = useDispatch();
     useEffect(() => {
         fetch("http://localhost:3030/restorent/seller/foods", {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
-                'authorization' : `bearer ${token}`
+                'authorization': `bearer ${token}`
             }
         })
             .then((res) => {
@@ -31,5 +32,6 @@ function useGetAllFood() {
     }, []);
     return [food, setFood];
 }
+
 
 export default useGetAllFood;
