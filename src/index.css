@@ -125,3 +125,14 @@ code {
 }
 
 /* #e6b36c */
+
+#foodIdCard{
+  display: flex;
+}
+
+#foodIdCard div img {
+  height: 175px;
+  width: 200px;
+  border-radius: 10px;
+  margin-right: 10vh;
+}

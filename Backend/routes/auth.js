@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const userLogedIn = require('../middleware/userLogedIn');
-const JWT_SEC = 'meh$2005!';
+const JWT_SEC = 'meh$#2005!';
 
 // User sign up  route:
 router.post('/signup', async (req, res) => {
@@ -49,7 +49,7 @@ router.post('/login', async (req, res) => {
 
     try {
         const isUser = await User.findOne({ email });
-        console.log(isUser)
+        console.log("from login ", isUser._id)
         if (!isUser) {
             return res.status(400).send(false);
         }
@@ -60,9 +60,9 @@ router.post('/login', async (req, res) => {
             return res.status(400).send(false);
         }
         const payload = {
-            id: isUser._id,
-            email: isUser.email,
-            password: isUser.password
+            id: await isUser._id,
+            email: await isUser.email,
+            password: await isUser.password
         }
         console.log(payload);
 
@@ -76,14 +76,16 @@ router.post('/login', async (req, res) => {
 // GET user details
 router.get('/user', userLogedIn, async (req, res) => {
     try {
-        const user_id = req.user.id;
-        const isUser = await User.findById(user_id).select('-password');
+
+        let user_id = await req.user.id;
+        let isUser = await User.findById(user_id).select('-password');
         if (!isUser) {
             return res.status(404).send({ error: 'User not found!' });
         }
-        res.send({ isUser, token });
+        res.send(isUser);
     } catch (error) {
         console.log("ERROR MSG : ", error);
+        res.status(500).send("Internal server error");
     }
 });
 
@@ -98,7 +100,6 @@ router.post('/changepassword', userLogedIn, async (req, res) => {
         if ((isUser.email != email)) {
             return res.status(401).json({ "ERROR ": "Invalid Email address!!" });
         }
-        console.log(isUser);
 
         const checkPass = await bcrypt.compare(password, user.password);
 

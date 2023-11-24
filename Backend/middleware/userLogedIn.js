@@ -7,14 +7,14 @@ const userLogedIn = async (req, res, next) => {
 
     if (!token) return res.status(401).send('token not exists!');
 
-    jwt.verify(token, JWT_SEC, (err, user) => {
+    jwt.verify(token, JWT_SEC, async (err, user) => {
         // if (err) {
-        //     return res.status(403).json({"ERROR " : err});
+        //     console.log(err);
+        //     // return res.status(403).json({"ERROR " : err});
         // }
-        req.user = user;
+        req.user = await user;
         next();
     });
-
 };
 
 module.exports = userLogedIn;

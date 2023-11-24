@@ -1,7 +1,26 @@
-import { Link, Outlet, } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate, } from 'react-router-dom';
 import '../index.css';
+import useGetUserDetail from '../hooks/useGetUserDetail';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 export default function Layout() {
+    const location = useLocation();
+    const [user] = useGetUserDetail();
+    const [token, setToken] = useState("");
+    const navigate = useNavigate();
+    const food = useSelector(state => state.food.foods);
+    const cartCount = useSelector(state => state.cartCount.count);
+
+    useEffect(() => {
+        if (location.pathname !== "/food/auth/login" || location.pathname !== "/food/auth/signup") {
+            setToken(localStorage.getItem("auth-token"));
+        }
+        else {
+            setToken("");
+        }
+    }, [location.pathname]);
+
     return (
         <>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -19,13 +38,45 @@ export default function Layout() {
                                 <a className="nav-link" href="#">Link</a>
                             </li>
                         </ul>
-                        <form className="d-flex" role="search">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-outline-success" type="submit">Search</button>
+                        <form className="d-flex" >
+                            <input className="form-control me-2" type="text" placeholder="Search" aria-label="Search" id='searchBtn' />
+                            <button className="btn btn-outline-success" >Search</button>
                         </form>
+                        <div className='mx-2' style={{ cursor: "pointer" }}>
+                            {
+                                token ?
+                                    <div className='userInfo'>
+                                        <i className="fa-solid fa-user mx-2"></i>
+                                        <text>{user.username}</text>
+                                    </div>
+                                    : ""
+                            }
+                        </div>
+                        <Link to={'/food/foocart'}>
+                        <div className='mx-3'>
+                            {
+                                token ?
+                                    <button type="button" class="btn position-relative">
+                                        <i class="fa-solid fa-cart-shopping"></i>
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger my-1">
+                                            {cartCount}
+                                            <span class="visually-hidden">unread messages</span>
+                                        </span>
+                                    </button>
+                                    : ""
+                            }
+                        </div>
+                        </Link>
+                        <div className='mx-2'>
+                            {token ? <button className='btn btn-outline-danger' onClick={() => {
+                                localStorage.removeItem("auth-token");
+                                setToken("");
+                                navigate('/food/auth/login');
+                            }}>Log out</button> : ""}
+                        </div>
                     </div>
                 </div>
-            </nav>
+            </nav >
             <div>
                 <Outlet />
             </div>

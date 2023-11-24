@@ -8,6 +8,8 @@ import UserContextProvider from './context/UserContextProvider';
 import Food from './Components/Food';
 import { Provider } from 'react-redux';
 import store from './store';
+import OneFood from './Components/OneFood';
+import Cart from './Components/Cart';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -20,6 +22,8 @@ root.render(
             <Route path='/food/auth/login' element={<UserModelProvider isLogin="true" />} />
             <Route path='/food/auth/signup' element={<UserModelProvider />} />
             <Route path='/user' element={<Food />} />
+            <Route path='/food/:restoName' element={<OneFood />} />
+            <Route path='/food/foocart' element={<Cart />} />
           </Route>
         </Routes>
       </UserContextProvider>
