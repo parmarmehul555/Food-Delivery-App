@@ -68,6 +68,11 @@ router.delete('/deletefood', sellerLogedIn, async (req, res) => {
     } catch (error) {
         return res.status(401).json({ "ERROR ": "seller not exists!!" });
     }
+});
+
+router.get('/food/:sellerName', userLogedIn, async (req, res) => {
+    const data = await Food.find({sellerName:req.params.sellerName});
+    res.status(200).send( data );
 })
 
 module.exports = router;

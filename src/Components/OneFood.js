@@ -2,38 +2,72 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
 import { incrementCartCount } from "../features/cartCountSlice";
-import {addCartItemList, removeCartItemList } from "../features/cartItemSlice";
+import useGetOneFood from "../hooks/useGetOneFood";
 
 export default function OneFood() {
-    const { restoName } = useParams();
-    const food = useSelector(state => state.food.foods);
-    const [newFood, setNewFood] = useState([]);
     const dispatch = useDispatch();
+    const { restoName } = useParams();
+    const [allfood] = useGetOneFood(restoName);
+    const count = useSelector(state => state.cartCount.count);
 
-    useEffect(() => {
-        const filteredFood = food.filter(item => item.sellerName === restoName);
-        setNewFood(filteredFood);
-    }, [food,restoName]);
 
-    const formattedRestoFood = newFood.map((item) => {
+    const [order, setOrder] = useState({});
+    function handleOrder(data) {
+        const token = localStorage.getItem("auth-token");
+        fetch("http://localhost:3030/food/auth/orderfood", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `bearer ${token}`
+            }
+        })
+            .then((res) => {
+                if (res.ok) {
+                    return res.json();
+                }
+                else {
+                    console.log("Can not order food!!");
+                    throw new Error("Can not order food!!");
+                }
+            })
+            .then((res) => {
+                setOrder(res);
+            }).catch((err) => {
+                console.log("ERROR is (failed to order) ", err)
+            })
+    }
+
+    const formattedRestoFood = allfood.map((item) => {
         return (
             <div key={item._id} class="card" style={{ marginTop: "2vh" }}>
                 <h5 class="card-header">{item.sellerName}</h5>
                 <div class="card-body" id="foodIdCard">
-                    <div><img src={item.foodImg} alt="food img"/></div>
+                    <div><img src={item.foodImg} alt="food img" /></div>
                     <div>
                         <h5 class="card-title">{item.foodName}</h5>
                         <p class="card-text">{item.foodDescription}</p>
                         <p class="card-text">Rs. {item.foodPrice}/-</p>
                         <button class="btn btn-primary" onClick={() => {
+                            console.log(item.foodName);
+                            console.log(item.foodPrice);
+                            console.log(restoName);
+                            const data = {
+                                foodName: item.foodName,
+                                foodPrice: item.foodPrice,
+                                restorentName: restoName
+                            }
+                            handleOrder(data);
+                            // setFood({ foodName: item.foodName, foodPrice: item.foodPrice, restorentName: restoName });
                             dispatch(incrementCartCount(1));
-                            dispatch(addCartItemList(item));
+                            localStorage.setItem("count", count+1);
                         }}>Add</button>
                     </div>
                 </div>
             </div>
         )
     })
+
     return (
         <div className="container">
             {formattedRestoFood}

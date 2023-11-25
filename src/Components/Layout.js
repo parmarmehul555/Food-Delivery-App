@@ -59,7 +59,7 @@ export default function Layout() {
                                     <button type="button" class="btn position-relative">
                                         <i class="fa-solid fa-cart-shopping"></i>
                                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger my-1">
-                                            {cartCount}
+                                            {localStorage.getItem("count")}
                                             <span class="visually-hidden">unread messages</span>
                                         </span>
                                     </button>
@@ -69,7 +69,7 @@ export default function Layout() {
                         </Link>
                         <div className='mx-2'>
                             {token ? <button className='btn btn-outline-danger' onClick={() => {
-                                localStorage.removeItem("auth-token");
+                                localStorage.clear();
                                 setToken("");
                                 navigate('/food/auth/login');
                             }}>Log out</button> : ""}

@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 
 function useGetAllFood() {
     const [food, setFood] = useState([]);
     const token = localStorage.getItem("auth-token");
-    const dispatch = useDispatch();
+
     useEffect(() => {
         fetch("http://localhost:3030/restorent/seller/foods", {
             method: "GET",
