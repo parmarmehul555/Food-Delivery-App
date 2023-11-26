@@ -16,7 +16,7 @@ orderRouter.get('/orders', userLogedIn, async (req, res) => {
 
 //ORDER YOUR FOOD
 orderRouter.post('/orderfood', userLogedIn, async (req, res) => {
-    const { foodName, foodPrice, restorentName } = req.body;
+    const { foodName, foodPrice, restorentName,foodImg } = req.body;
 
     const isUser = await User.findById(req.user.id);
 
@@ -26,6 +26,7 @@ orderRouter.post('/orderfood', userLogedIn, async (req, res) => {
     myOrder.foodName = foodName;
     myOrder.foodPrice = foodPrice;
     myOrder.restorentName = restorentName;
+    myOrder.foodImg = foodImg;
     // myOrder.customerAddress = address;
     myOrder.customerDetails = isUser.username;
 

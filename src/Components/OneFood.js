@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
-import { incrementCartCount } from "../features/cartCountSlice";
+import { cartCount } from "../features/cartCountSlice";
 import useGetOneFood from "../hooks/useGetOneFood";
+import useGetCartFood from "../hooks/useGetCartFood";
 
 export default function OneFood() {
     const dispatch = useDispatch();
     const { restoName } = useParams();
     const [allfood] = useGetOneFood(restoName);
     const count = useSelector(state => state.cartCount.count);
-
-
+    const [orderFood, setOrderFood, countF, setCountF] = useGetCartFood();
     const [order, setOrder] = useState({});
+    if(!localStorage.getItem("count")){
+        localStorage.setItem("count",parseInt(0));
+    }
+
     function handleOrder(data) {
         const token = localStorage.getItem("auth-token");
         fetch("http://localhost:3030/food/auth/orderfood", {
@@ -55,12 +59,15 @@ export default function OneFood() {
                             const data = {
                                 foodName: item.foodName,
                                 foodPrice: item.foodPrice,
-                                restorentName: restoName
+                                restorentName: restoName,
+                                foodImg: item.foodImg
                             }
                             handleOrder(data);
                             // setFood({ foodName: item.foodName, foodPrice: item.foodPrice, restorentName: restoName });
-                            dispatch(incrementCartCount(1));
-                            localStorage.setItem("count", count+1);
+                            // dispatch(incrementCartCount(1));
+                            localStorage.setItem("count", parseInt(count) + 1);
+                            setCountF(localStorage.getItem("count"));
+                            dispatch(cartCount(localStorage.getItem("count")));
                         }}>Add</button>
                     </div>
                 </div>

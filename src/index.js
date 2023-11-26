@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import OneFood from './Components/OneFood';
 import Cart from './Components/Cart';
+import Order from './Components/Order';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,6 +25,7 @@ root.render(
             <Route path='/user' element={<Food />} />
             <Route path='/food/:restoName' element={<OneFood />} />
             <Route path='/food/foocart' element={<Cart />} />
+            <Route path='/user/yourorders' element={<Order />} />
           </Route>
         </Routes>
       </UserContextProvider>

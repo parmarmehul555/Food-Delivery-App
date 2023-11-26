@@ -3,6 +3,7 @@ import '../index.css';
 import useGetUserDetail from '../hooks/useGetUserDetail';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import useGetCartFood from '../hooks/useGetCartFood';
 
 export default function Layout() {
     const location = useLocation();
@@ -11,6 +12,12 @@ export default function Layout() {
     const navigate = useNavigate();
     const food = useSelector(state => state.food.foods);
     const cartCount = useSelector(state => state.cartCount.count);
+    console.log("dfajkdkf", cartCount)
+
+    const [count, setCount] = useState(0);
+    useEffect(()=>{
+
+    },[location])
 
     useEffect(() => {
         if (location.pathname !== "/food/auth/login" || location.pathname !== "/food/auth/signup") {
@@ -35,7 +42,7 @@ export default function Layout() {
                                 <Link className="nav-link" aria-current="page" to={localStorage.getItem('auth-token') ? '/user' : '/food/auth/login'}>Home</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Link</a>
+                                <Link to={'/user/yourorders'} className="nav-link" href="#">Your Orders</Link>
                             </li>
                         </ul>
                         <form className="d-flex" >
@@ -53,19 +60,19 @@ export default function Layout() {
                             }
                         </div>
                         <Link to={'/food/foocart'}>
-                        <div className='mx-3'>
-                            {
-                                token ?
-                                    <button type="button" class="btn position-relative">
-                                        <i class="fa-solid fa-cart-shopping"></i>
-                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger my-1">
-                                            {localStorage.getItem("count")}
-                                            <span class="visually-hidden">unread messages</span>
-                                        </span>
-                                    </button>
-                                    : ""
-                            }
-                        </div>
+                            <div className='mx-3'>
+                                {
+                                    token ?
+                                        <button type="button" class="btn position-relative">
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger my-1">
+                                                {/* {localStorage.getItem("count")} */}
+                                                {cartCount}
+                                            </span>
+                                        </button>
+                                        : ""
+                                }
+                            </div>
                         </Link>
                         <div className='mx-2'>
                             {token ? <button className='btn btn-outline-danger' onClick={() => {

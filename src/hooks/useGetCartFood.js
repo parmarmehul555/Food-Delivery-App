@@ -24,6 +24,7 @@ function useGetCartFood() {
             .then((res) => {
                 setOrderFood(res.data);
                 setCount(res.count);
+                console.log("count", res.count);
             })
             .catch((err) => {
                 console.log("ERROR : Can not fetch order data ", err);

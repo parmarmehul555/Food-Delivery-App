@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
-const orderSchema = mongoose.Schema({
-    // customerDetails: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'User',
-    //     required: true
-    // },
+const deliveredOrderSchema = mongoose.Schema({
     customerId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -29,12 +24,12 @@ const orderSchema = mongoose.Schema({
     },
     foodImg: {
         type: String,
-        required:true
+        required: true
+    },
+    count: {
+        type: Number,
+        default: 0
     }
-    // customerAddress: {
-    //     type: String,
-    //     required: true
-    // }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Order', orderSchema);
+module.exports = mongoose.model('DeliveredOrder', deliveredOrderSchema);

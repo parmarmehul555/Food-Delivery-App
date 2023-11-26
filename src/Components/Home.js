@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import '../index.css';
 
 export default function Home() {
+    if(!localStorage.getItem("count")){
+        localStorage.setItem("count",parseInt(0));
+    }
     return (
 
         <div className="home" >
