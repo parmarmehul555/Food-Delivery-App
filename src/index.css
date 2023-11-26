@@ -93,6 +93,7 @@ code {
 
 .ip::placeholder{
   color: white;
+  padding-left: 3px;
 }
 
 .signup{
@@ -114,6 +115,52 @@ code {
 .signup .btn,.login .btn{
   background-color: #f55b03 !important;
   outline: none !important;
+}
+
+#wrongInputMsg{
+  color: red;
+  display: none;
+}
+
+#icon{
+  color: white;
+  position: relative;
+  right: 2vh;
+}
+
+#list-msg{
+  color: white;
+  display: none;
+  font-size: 14px;
+  list-style-type: none;
+  margin-left: -5vh;
+}
+
+#icon-right{
+  position: relative;
+  left:31vh;
+  bottom: 10vh;
+}
+
+#eye-icon{
+  position: relative;
+  display: inline;
+  right: 5vh;
+}
+
+#eye-close{
+  display: none;
+  position: relative;
+  right: 5vh;
+  color: white;
+}
+
+#eye-close.active{
+  display: inline;
+}
+
+ul li {
+  color: white;
 }
 
 #logOutBtn{
