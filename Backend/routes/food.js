@@ -4,6 +4,7 @@ const Seller = require('../modals/Seller');
 const router = express.Router();
 const sellerLogedIn = require('../middleware/sellerLogedIn');
 const upload = require('../middleware/multer');
+// const upload = require('../temp/imgs');
 const uploadCloudinary = require('../middleware/cloudinary');
 const path = require('path');
 const userLogedIn = require('../middleware/userLogedIn');
@@ -17,8 +18,9 @@ router.get('/foods', userLogedIn, async (req, res) => {
 //Add details of food 
 router.post('/fooddetails',
     sellerLogedIn,
-    upload.single('img'),
+    upload.single('avatar'),
     async (req, res) => {
+        console.log("fole is ",req.file);
         const localFilePath = req.file.path;
         const result = await uploadCloudinary(localFilePath);
         const { name, price, description, img, type } = req.body;

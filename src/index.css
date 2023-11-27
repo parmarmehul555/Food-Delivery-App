@@ -86,7 +86,6 @@ code {
   width: 35vh;
   outline: none;
   border-bottom: 2px solid white;
-  padding-left: 3px;
   margin-bottom: 2vh;
   /* border-radius: 10px; */
 }
@@ -145,13 +144,13 @@ code {
 #eye-icon{
   position: relative;
   display: inline;
-  right: 5vh;
+  right: 3vh;
 }
 
 #eye-close{
   display: none;
   position: relative;
-  right: 5vh;
+  right: 3vh;
   color: white;
 }
 
@@ -170,6 +169,14 @@ ul li {
 #logOutBtn.active{
   display: block;
 }
+
+#ip-box{
+  display: flex;
+}
+
+/* #all-box{
+  margin-left: 10vh; */
+/* } */ */
 
 /* #e6b36c */
 
