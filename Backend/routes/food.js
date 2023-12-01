@@ -22,8 +22,8 @@ router.get('/seller/food', sellerLogedIn, async (req, res) => {
 })
 
 //GET food by id
-router.get('/:foodId', sellerLogedIn,async(req,res)=>{
-    const data = await Food.findOne({_id : req.params.foodId});
+router.get('/:foodId', sellerLogedIn, async (req, res) => {
+    const data = await Food.findOne({ _id: req.params.foodId });
     res.status(200).send(data);
 })
 
@@ -60,24 +60,40 @@ router.post('/fooddetails',
     });
 
 //Edit details of food    
-router.put('/updatefood/:foodId', sellerLogedIn, async (req, res) => {
+router.put('/updatefood/:foodId', upload.single('img'), sellerLogedIn, async (req, res) => {
     try {
-        const { foodName, foodPrice, foodDescription, foodImg,foodType } = await req.body;
 
         const isSeller = await Seller.findOne({ _id: req.seller.id });
         if (!isSeller) return res.status(401).json({ "ERROR": "Seller not exists!" });
 
         const isFood = await Food.findOne({ _id: req.params.foodId });
-        if (!isSeller) return res.status(401).json({ "ERROR": "Please add food first!" });
+        if (!isFood) return res.status(401).json({ "ERROR": "Please add food first!" });
 
-        isFood.SellerId = isSeller._id;
-        isFood.sellerName = isSeller.sellerName;
-        isFood.foodName = foodName;
-        isFood.foodPrice = foodPrice;
-        isFood.foodDescription = foodDescription;
-        isFood.foodImg = foodImg;
-        isFood.foodType = foodType;
-        await isFood.save();
+        if (req.file) {
+            const { foodName, foodPrice, foodDescription, foodType } = await req.body;
+            isFood.SellerId = isSeller._id;
+            isFood.sellerName = isSeller.sellerName;
+            isFood.foodName = foodName;
+            isFood.foodPrice = foodPrice;
+            isFood.foodDescription = foodDescription;
+
+            const localFilePath = `${req.file.destination}/${req.file.filename}`;
+            const result = await uploadCloudinary(localFilePath);
+            isFood.foodImg = result;
+
+            isFood.foodType = foodType;
+            await isFood.save();
+        } else {
+            const { foodName, foodPrice, foodDescription, foodType } = await req.body;
+
+            isFood.SellerId = isSeller._id;
+            isFood.sellerName = isSeller.sellerName;
+            isFood.foodName = foodName;
+            isFood.foodPrice = foodPrice;
+            isFood.foodDescription = foodDescription;
+            isFood.foodType = foodType;
+            await isFood.save();
+        }
         res.status(200).send(isFood);
     } catch (err) {
         return res.status(401).json({ "ERROR ": err });

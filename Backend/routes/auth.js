@@ -8,7 +8,7 @@ const JWT_SEC = 'meh$#2005!';
 
 // User sign up  route:
 router.post('/signup', async (req, res) => {
-    const { userName, email, password } = req.body;
+    const { userName, email, password,address,number } = req.body;
     console.log("email outside hash", email);
     console.log("passwor outside hash", password);
 
@@ -28,6 +28,8 @@ router.post('/signup', async (req, res) => {
         user.username = userName;
         user.email = email;
         user.password = hashedPass;
+        user.address = address;
+        user.phNo = number;
 
         await user.save();
 

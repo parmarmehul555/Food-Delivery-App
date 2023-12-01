@@ -198,6 +198,7 @@ export default function SellerModelProvider(props) {
                                 if (e.target.value === "") {
                                     icon.style.color = "white";
                                 }
+                                setSeller({ ...seller, name: e.target.value });
                             }} />
                             <i class="fa-solid fa-circle-check" id="check" style={{ color: "white" }}></i>
                         </div>
@@ -289,6 +290,25 @@ export default function SellerModelProvider(props) {
                                 pass.type = "text";
                                 eyeClose.style.display = "none";
                             }}></i>
+                        </div>
+
+                        <div className="ip-box">
+                        <i class="fa-solid fa-phone"></i>
+                            <input type="text" id="number" placeholder="Phone number" className="ip-style" onChange={(e) => {
+                                const number = document.getElementById('number').value;
+                                const icon = document.getElementById("check");
+                                if (number.length > 0 && number.length == 10) {
+                                    icon.style.color = "green";
+                                }
+                                else {
+                                    icon.style.color = "red";
+                                }
+                                if (e.target.value === "") {
+                                    icon.style.color = "white";
+                                }
+                                setSeller({ ...seller, phno: e.target.value });
+                            }} />
+                            <i class="fa-solid fa-circle-check" id="check" style={{ color: "white" }}></i>
                         </div>
                         <ul id="list-msg">
                             <li>Password must contain atleast 1 capital letter</li>

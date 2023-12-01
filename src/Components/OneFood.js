@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
-import { cartCount } from "../features/cartCountSlice";
+import { incrementCartCount } from "../features/cartCountSlice";
 import useGetOneFood from "../hooks/useGetOneFood";
 import useGetCartFood from "../hooks/useGetCartFood";
 
@@ -12,9 +12,9 @@ export default function OneFood() {
     const count = useSelector(state => state.cartCount.count);
     const [orderFood, setOrderFood, countF, setCountF] = useGetCartFood();
     const [order, setOrder] = useState({});
-    if(!localStorage.getItem("count")){
-        localStorage.setItem("count",parseInt(0));
-    }
+    // if (!localStorage.getItem("count")) {
+    //     localStorage.setItem("count", parseInt(0));
+    // }
 
     function handleOrder(data) {
         const token = localStorage.getItem("auth-token");
@@ -67,7 +67,7 @@ export default function OneFood() {
                             // dispatch(incrementCartCount(1));
                             localStorage.setItem("count", parseInt(count) + 1);
                             setCountF(localStorage.getItem("count"));
-                            dispatch(cartCount(localStorage.getItem("count")));
+                            dispatch(incrementCartCount(1));
                         }}>Add</button>
                     </div>
                 </div>

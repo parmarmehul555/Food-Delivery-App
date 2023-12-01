@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getAllFood } from "../features/foodSlice";
 
 function useGetAllFood() {
     const [food, setFood] = useState([]);
     const token = localStorage.getItem("auth-token");
-
+const dispatch = useDispatch();
     useEffect(() => {
         fetch("http://localhost:3030/restorent/seller/foods", {
             method: "GET",
@@ -24,6 +26,7 @@ function useGetAllFood() {
             })
             .then((res) => {
                 setFood(res);
+                dispatch(getAllFood(res));
             })
             .catch((err) => {
                 console.log("ERROR in fetching food ", err);
@@ -31,6 +34,5 @@ function useGetAllFood() {
     }, []);
     return [food, setFood];
 }
-
 
 export default useGetAllFood;

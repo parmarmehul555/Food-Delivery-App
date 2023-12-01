@@ -4,25 +4,22 @@ import { getAllFood } from "../features/foodSlice";
 import { useNavigate } from "react-router-dom";
 import useGetCartFood from "../hooks/useGetCartFood";
 import '../index.css';
+import { useEffect } from "react";
 
 export default function Food() {
+    
     const [allFood] = useGetAllFood();
-    const dispatch = useDispatch();
-    dispatch(getAllFood(allFood));
     const navigate = useNavigate();
-    // localStorage.getItem("count");
-    
-    if(!localStorage.getItem("count")){
-        localStorage.setItem("count",parseInt(0));
-    }
+    const [orderFood, setOrderFood, count, setCount] = useGetCartFood();
+    console.log(";;;;;;;;;;;;;", count);
 
-    
+    localStorage.setItem("count", count);
 
     const food = useSelector(state => state.food.foods);
     let formattedData = food.map((item) => {
         return (
             <>
-                <div className={window.innerWidth <= 756 && window.innerWidth >= 568 ? "col-6 card" :( window.innerWidth <= 479 ? "col-12" :"col-3")}>
+                <div className={window.innerWidth <= 756 && window.innerWidth >= 568 ? "col-6 card" : (window.innerWidth <= 479 ? "col-12" : "col-3")}>
                     <div class="card foodCard my-2" style={{ width: "17rem", height: "53vh" }} onClick={() => {
                         navigate(`/food/${item.sellerName}`)
                     }}>

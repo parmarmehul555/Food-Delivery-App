@@ -13,6 +13,16 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    address : {
+        type : String,
+        required:true
+    },
+    phNo : {
+        type : Number,
+        required: true,
+        unique: true,
+        maxlength : 10
     }
 });
 

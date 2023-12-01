@@ -18,7 +18,7 @@ export default function Layout() {
                                 <Link to={'/seller/addfooddata'} className="nav-link" >Add Food</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to={''} className="nav-link" >Your Customer</Link>
+                                <Link to={'/seller/yourcustomers'} className="nav-link" >Your Customer</Link>
                             </li>
                         </ul>
                         <form className="d-flex" >

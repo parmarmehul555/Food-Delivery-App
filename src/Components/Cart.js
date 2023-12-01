@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { cartCount } from "../features/cartCountSlice";
+import { decrementCartCount } from "../features/cartCountSlice";
 import { addCartItemList } from "../features/cartItemSlice";
 import useGetCartFood from "../hooks/useGetCartFood";
 import { useEffect, useState } from "react";
@@ -58,7 +58,7 @@ export default function Cart() {
                         <button class="btn btn-danger me-3" onClick={async () => {
                             // count > 0 ? dispatch(decrementCartCount(1)) : dispatch(decrementCartCount(0));
                             localStorage.setItem("count", count - 1);
-                            count > 0 ? dispatch(cartCount(localStorage.getItem("count"))) : localStorage.setItem("count", 0);
+                            count > 0 ? dispatch(decrementCartCount(1)) : localStorage.setItem("count", 0);
                             await fetch(`http://localhost:3030/food/auth/deleteorder/${item._id}`, {
                                 method: 'DELETE',
                                 headers: {
@@ -88,7 +88,7 @@ export default function Cart() {
                                         }
                                     })
                                     setOrderFood(orderFood.filter((food) => food._id !== item._id ? food : ""));
-                                    dispatch(cartCount(localStorage.setItem("count",count-1)));
+                                    dispatch((decrementCartCount(1)));
                                     btn.checked = false;
                                 }
                             }}
@@ -101,13 +101,16 @@ export default function Cart() {
     })
     return (
         <>
-            {/* count != 0 ? */}
-            <div className="container">
-                {formattedCartList}
-            </div>
-            {/* // :
-            // <h1>Your cart is empty!!!</h1>
-            //  */}
+            {count != 0 ?
+                <div className="container">
+                    {formattedCartList}
+                </div>
+                :
+                <div style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+                    <img src="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-7359557-6024626.png" alt="empty cart img" />
+                    <h1>Your cart is empty!!</h1>
+                </div>
+            }
         </>
     )
 }

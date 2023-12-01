@@ -6,6 +6,7 @@ const { Route } = require('react-router-dom');
 const orderRouter = express.Router();
 const sellerLogedIn = require('../middleware/sellerLogedIn');
 const Seller = require('../modals/Seller');
+const DiliveredOrder = require('../modals/DeliveredOrder');
 
 //GET ordered food
 orderRouter.get('/orders', userLogedIn, async (req, res) => {
@@ -66,11 +67,22 @@ orderRouter.get('/yourcustomers', sellerLogedIn, async (req, res) => {
 
         if (!isSeller) return res.status(401).json({ "ERROR ": "log in first!!" });
 
-        const data = await Order.find({ restorentName: isSeller.sellerName });
+        const order = await Order.find({ restorentName: isSeller.sellerName });
+        let data = [];
+        let index = 0;
 
+        const temp = await DiliveredOrder.distinct('customerId');
+        console.log("============",temp);
+        
+        for (let id of temp) {
+            console.log(id);
+            const value = await User.findOne({ _id: id });
+            data.push(value);
+        }
+        console.log("+++++++++++++=",data);
         res.status(200).send(data);
     } catch (error) {
-        return res.status(500).json({ "ERROR ": "Internal server error" });
+        return res.status(500).json({ "ERROR ": "Internal server error: ", error });
     }
 })
 

@@ -37,30 +37,16 @@ export default function EditFood() {
         formData.append("foodImg", data.foodImg);
         formData.append("foodType", data.foodType);
 
-        fetch(`http://localhost:3030/restorent/seller/updatefood/${foodId}`, {
-            method: "PUT",
-            body: formData,
-            headers: {
-                'Content-type': 'multipart/form-data',
-                'authorization': `bearer ${token}`
-            }
-        }).then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            else {
-                throw new Error("Can not edit data");
-            }
-        }).then((res) => {
-            setData(res);
-            navigate('/seller/dashboard');
-        })
-            .catch((err) => {
-                console.log("ERROR to edit data ", err);
+        const result = axios.put(`http://localhost:3030/restorent/seller/updatefood/${foodId}`,
+            formData,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'authorization': `bearer ${token}`
+                }
             })
-        console.log("data is ", data);
 
-        // const result = axios.put(`http://localhost:3030/restorent/seller/updatefood/${foodId}`, formData, { headers: { 'Content-Type': 'multipart/form-data', 'authorization': `bearer ${token}` } })
+        navigate('/seller/dashboard');
     }
 
 

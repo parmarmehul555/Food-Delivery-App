@@ -28,8 +28,10 @@ export default function Order() {
                     {formatterFood}
                 </div>
                 :
-                <h1>No orders yet</h1>
-
+                <div className="img-order">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc01EsWzpXeIIX-DZ_IBSqItwAzmC7zZoPC-abxDZ_5_nItiAI9A5BcSf2XE_oflO9od8&usqp=CAU" alt="no orders yet img" />
+                    <h1>No orders yet</h1>
+                </div>
             }
         </>
     )

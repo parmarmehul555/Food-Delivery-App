@@ -121,6 +121,24 @@ nav {
   margin-left: 2vh;
 }
 
+#address{
+  margin-left: 2vh;
+  margin-bottom: 5vh;
+}
+
+#number{
+  margin-left: 2vh;
+  margin-bottom: 5vh;
+}
+
+#numberUser{
+  margin-left: 2vh;
+}
+
+#userUser{
+  margin-bottom: 5vh; 
+}
+
 #password {
   margin-top: 5vh;
   margin-left: 2vh;
@@ -294,6 +312,17 @@ nav {
   font-size: 21px;
 }
 
+.img-order{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  flex-direction: column;
+}
+
+.img-order img{
+  height: 70%;
+}
 /* Media Query (SELLER)*/
 @media screen and (max-width :885px) {
 
@@ -347,6 +376,10 @@ nav {
     background-repeat: no-repeat;
   }
 
+  .signup-box{
+    margin-top: -9vh;
+  }
+
   .login-box,
   .signup-box {
     background-color: transparent;
@@ -359,17 +392,20 @@ nav {
 
   .login-box h2 {
     margin-top: 6vh;
-    margin-bottom: -1rem;
   }
 
   .signup-box h2 {
-    margin-top: 3vh;
-    margin-bottom: 0vh;
+    margin-top: 2vh;
   }
 
   .login-box #suggetion {
     margin-top: 1vh;
   }
+
+  #userUser{
+    margin-top: 5vh;
+  }
+
 }
 
 @media screen and (max-width :357px) {

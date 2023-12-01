@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import userContext from "../context/userContext";
 import '../index.css';
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 export default function UserModelProvider(props) {
     const { user, setUser } = useContext(userContext);
@@ -178,6 +179,21 @@ export default function UserModelProvider(props) {
                         <div className="btn " style={{ backgroundColor: "#e6b36c" }} id="login-btn" onClick={() => {
                             if (emailValid && passValid) {
                                 sendModel();
+                                const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: "top-end",
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                    timerProgressBar: true,
+                                    didOpen: (toast) => {
+                                        toast.onmouseenter = Swal.stopTimer;
+                                        toast.onmouseleave = Swal.resumeTimer;
+                                    }
+                                });
+                                Toast.fire({
+                                    icon: "success",
+                                    title: `Welcomeback ${user.username}`
+                                });
                             }
                             else {
                                 const msg = document.getElementById('wrongInputMsg');
@@ -192,12 +208,32 @@ export default function UserModelProvider(props) {
 
                         <div className="ip-box">
                             <i class="fa-solid fa-user"></i>
-                            <input type="text" id="user" placeholder="User Name" className="ip-style" onChange={(e) => {
-                                const icon = document.getElementById("check");
+                            <input type="text" id="userUser" placeholder="User Name" className="ip-style" onChange={(e) => {
+                                const icon = document.getElementById("checkIcon");
                                 icon.style.color = "green";
+                                setUser({ ...user, userName: e.target.value })
                                 if (e.target.value === "") {
                                     icon.style.color = "white";
                                 }
+                            }} />
+                            <i class="fa-solid fa-circle-check" id="checkIcon" style={{ color: "white" }}></i>
+                        </div>
+
+                        <div className="ip-box">
+                        <i class="fa-solid fa-phone"></i>
+                            <input type="text" id="numberUser" placeholder="Phone number" className="ip-style" onChange={(e) => {
+                                const number = document.getElementById('number').value;
+                                const icon = document.getElementById("check");
+                                if (number.length > 0 && number.length == 10) {
+                                    icon.style.color = "green";
+                                }
+                                else {
+                                    icon.style.color = "red";
+                                }
+                                if (e.target.value === "") {
+                                    icon.style.color = "white";
+                                }
+                                setUser({ ...user, phno: e.target.value });
                             }} />
                             <i class="fa-solid fa-circle-check" id="check" style={{ color: "white" }}></i>
                         </div>
@@ -290,6 +326,19 @@ export default function UserModelProvider(props) {
                                 eyeClose.style.display = "none";
                             }}></i>
                         </div>
+
+                        <div className="ip-box">
+                        <i class="fa-solid fa-house"></i>
+                            <input type="text" id="address" placeholder="Address" className="ip-style" onChange={(e) => {
+                                const icon = document.getElementById("check");
+                                icon.style.color = "green";
+                                if (e.target.value === "") {
+                                    icon.style.color = "white";
+                                }
+                                setUser({ ...user, phno: e.target.value });
+                            }} />
+                            <i class="fa-solid fa-circle-check" id="check" style={{ color: "white" }}></i>
+                        </div>
                         <ul id="list-msg">
                             <li>Password must contain atleast 1 capital letter</li>
                             <li>Password must contain atleast 1 small letter</li>
@@ -298,8 +347,24 @@ export default function UserModelProvider(props) {
                             <li>Password length must be more then 8</li>
                         </ul>
                         <div className="btn " style={{ backgroundColor: "#e6b36c" }} id="login-btn" onClick={() => {
+                            console.log("data is ", user);
                             if (emailValid && passValid) {
                                 sendModel();
+                                const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: "top-end",
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                    timerProgressBar: true,
+                                    didOpen: (toast) => {
+                                        toast.onmouseenter = Swal.stopTimer;
+                                        toast.onmouseleave = Swal.resumeTimer;
+                                    }
+                                });
+                                Toast.fire({
+                                    icon: "success",
+                                    title: `Welcome-back ${user.username}`
+                                });
                             }
                             else {
                                 const msg = document.getElementById('wrongInputMsg');

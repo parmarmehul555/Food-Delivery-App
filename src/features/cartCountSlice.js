@@ -1,19 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-    count: localStorage.getItem("count")
+    count: parseInt(localStorage.getItem("count"))
 }
 
 const cartCountSlice = createSlice({
     name: "Cart Count",
     initialState,
     reducers: {
-        cartCount: (state, action) => {
-            state.count = action.payload;
+        incrementCartCount: (state, action) => {
+            state.count = state.count + action.payload;
+        },
+        decrementCartCount: (state, action) => {
+            state.count = state.count - action.payload;
         }
     }
 });
 
-export const { cartCount } = cartCountSlice.actions;
+export const { incrementCartCount, decrementCartCount } = cartCountSlice.actions;
 
 export default cartCountSlice.reducer;
