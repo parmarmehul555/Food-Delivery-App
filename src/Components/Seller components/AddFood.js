@@ -1,81 +1,85 @@
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import foodContext from "../../context/foodContext";
 
-export default function AddFood() {
+export default function AddFood(props) {
+    console.log(props);
     const [data, setData] = useState({});
 
     function handleData(e) {
         e.preventDefault();
         const token = localStorage.getItem("seller-token");
-        fetch("http://localhost:3030/restorent/seller/fooddetails", {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': `bearer ${token}`
-            }
-        })
-            .then((res) => {
-                if (res.ok) {
-                    return res.json();
-                }
-                else {
-                    throw new Error("can not send data to server");
-                }
-            })
-            .then((res) => {
-                setData(res);
-            })
-            .catch((err) => {
-                console.log("ERROR to send data to server is ", err);
-            })
+
+        const formData = new FormData();
+        formData.append("name", data.name);
+        formData.append("price", data.price);
+        formData.append("description", data.description);
+        formData.append("img", data.img);
+        formData.append("type", data.type);
+        console.log(formData.get("price"));
+
+        const result = axios.post('http://localhost:3030/restorent/seller/fooddetails', formData, { headers: { 'Content-Type': 'multipart/form-data', 'authorization': `bearer ${token}` } })
     }
 
     return (
         <>
-            <form action="/fooddetails" method="POST" encType="multipart/form-data">
-                <table>
-                    <tr>
-                        <td><label>Food Name</label></td>
-                        <td><input type="text" placeholder="Food Name" onChange={(e) => {
-                            setData({ ...data, name: e.target.value })
-                        }} /></td>
-                    </tr>
-                    <tr>
-                        <td><label>Food Price</label></td>
-                        <td><input type="text" placeholder="Food Price" onChange={(e) => {
-                            setData({ ...data, price: e.target.value })
-                        }} /></td>
-                    </tr>
-                    <tr>
-                        <td><label>Food Description</label></td>
-                        <td><input type="text" placeholder="Food Description" onChange={(e) => {
-                            setData({ ...data, description: e.target.value })
-                        }} /></td>
-                    </tr>
-                    <tr>
-                        <td><label>Food Iamge</label></td>
-                        <td><input type="file" name="avatar" onChange={(e) => {
-                            console.log("dsfa",e.target.files);
-                            const temp = e.target.files[0];
-                            console.log("============",temp);
-                            setData({ ...data, img: temp });
-                        }} /></td>
-                    </tr>
-                    <tr>
-                        <td><label>Food Type</label></td>
-                        <td><input type="text" placeholder="Food Type" onChange={(e) => {
-                            setData({ ...data, type: e.target.value })
-                        }} /></td>
-                    </tr>
-                    <tr>
-                        <td><button className="btn btn-outline-success" onClick={(e) => {
-                            console.log(data);
-                            handleData(e);
-                        }}>Submit</button></td>
-                        <td><button className="btn btn-outline-danger">Reset</button></td>
-                    </tr>
-                </table>
-            </form>
+            <div id="foodData" style={{
+                color: "white",
+                height: "100vh",
+                width: "100%",
+            }}>
+                <div id="food-details">
+                    <h1 style={{
+                    }}>Add Food Details</h1>
+                    <form action="/restorent/seller/fooddetails" method="POST" enctype="multipart/form-data" onSubmit={(e) => {
+                        handleData(e);
+                        const input_box = document.getElementsByClassName("input-value");
+                        for (let temp of input_box) {
+                            temp.value = "";
+                        }
+                    }}>
+
+                        <div className="formIp">
+                            <input className="ipField" type="text" placeholder="Food Name" value={data.foodName} onChange={(e) => {
+                                setData({ ...data, name: e.target.value })
+                            }} />
+                        </div>
+                        <div className="formIp">
+                            <input className="ipField" type="text" placeholder="Food Price" value={data.foodPrice} onChange={(e) => {
+                                console.log(e.target.value);
+                                setData({ ...data, price: e.target.value })
+                            }} />
+                        </div>
+                        <div className="formIp">
+                            <textarea className="ipField" placeholder="Food Description" value={data.foodDescription} onChange={(e) => {
+                                setData({ ...data, description: e.target.value })
+                            }} ></textarea>
+                        </div>
+                        <div className="formIp">
+                            <input className="ipField" type="file" name="img" placeholder="Food Image" onChange={(e) => {
+                                const temp = e.target.files[0];
+                                console.log("AVB In form = ", temp);
+                                setData({ ...data, img: temp });
+                            }} />
+                        </div>
+                        <div className="formIp">
+                            <input className="ipField" type="text" placeholder="Food Type" value={data.foodType} onChange={(e) => {
+                                setData({ ...data, type: e.target.value })
+                            }} />
+                        </div>
+                        <div style={{
+                            display: "flex",
+                            justifyContent: "space-evenly",
+                            marginTop: "10px"
+                        }}>
+                            <button className="btn btn-outline-success input-value">{props.isAdd ? "send" : "save changes"}</button>
+                            <button type="reset" className="btn btn-danger">Reset</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
         </>
     )
 }

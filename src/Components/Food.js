@@ -3,6 +3,7 @@ import useGetAllFood from "../hooks/useGetAllFood";
 import { getAllFood } from "../features/foodSlice";
 import { useNavigate } from "react-router-dom";
 import useGetCartFood from "../hooks/useGetCartFood";
+import '../index.css';
 
 export default function Food() {
     const [allFood] = useGetAllFood();
@@ -15,12 +16,14 @@ export default function Food() {
         localStorage.setItem("count",parseInt(0));
     }
 
+    
+
     const food = useSelector(state => state.food.foods);
     let formattedData = food.map((item) => {
         return (
             <>
-                <div className="col-3">
-                    <div class="card my-2" style={{ width: "17rem", height: "53vh" }} onClick={() => {
+                <div className={window.innerWidth <= 756 && window.innerWidth >= 568 ? "col-6 card" :( window.innerWidth <= 479 ? "col-12" :"col-3")}>
+                    <div class="card foodCard my-2" style={{ width: "17rem", height: "53vh" }} onClick={() => {
                         navigate(`/food/${item.sellerName}`)
                     }}>
                         <img style={{ height: "225px" }} src={item.foodImg} class="card-img-top" alt="Food Img" />

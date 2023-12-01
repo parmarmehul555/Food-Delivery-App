@@ -46,7 +46,7 @@ export default function OneFood() {
         return (
             <div key={item._id} class="card" style={{ marginTop: "2vh" }}>
                 <h5 class="card-header">{item.sellerName}</h5>
-                <div class="card-body" id="foodIdCard">
+                <div class="card-body oneCard" id="foodIdCard">
                     <div><img src={item.foodImg} alt="food img" /></div>
                     <div>
                         <h5 class="card-title">{item.foodName}</h5>

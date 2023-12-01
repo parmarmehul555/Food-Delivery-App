@@ -74,63 +74,62 @@ export default function UserModelProvider(props) {
     }
 
     return (
-        <>
-            <div id="img">
-                <img src="https://www.svapinfotech.com/data/media/orginal/food-delivery-2-5459.jpg" alt="img" />
-                {
-                    props.isLogin ?
-                        <>
-                            <div className='login' id='login'>
-                                <h2>Log in</h2>
-                                <p id="wrongInputMsg">Invalid email or password</p>
-                                <i class="fa-solid fa-envelope" style={{ color: "white" }} ></i>
-                                <input type="text" id="email" className='ip' style={{ marginBottom: "5vh" }} placeholder="email" onChange={(e) => {
-                                    const pattern = "^[A-Za-z]+[0-9]+@+gmail+[\.]+com"
-                                    const emailvalue = document.getElementById('email').value;
-                                    const icon = document.getElementById('icon');
-                                    const regEx = new RegExp(pattern);
-                                    if (!regEx.test(emailvalue)) {
-                                        icon.style.color = "red";
-                                        setEmailValid(false);
-                                    } else {
-                                        icon.style.color = "green";
-                                        setEmailValid(true);
-                                        setUser({ ...user, email: e.target.value });
-                                    }
-                                    if (e.target.value === "") {
-                                        setEmailValid(false);
-                                        icon.style.color = "white";
-                                    }
-                                }} /><i class="fa-regular fa-circle-check" id="icon"></i><br />
-                                <div id="all-box">
-                                <i class="fa-solid fa-lock" style={{ color: "white" }}></i>
-                                <input type="password" id="password" className='ip' style={{ marginBottom: "8vh" }} placeholder="password" onChange={(e) => {
-                                    const msg = document.getElementById('wrongInputMsg');
-                                    msg.style.display = "none";
-                                    const pass = document.getElementById("password").value;
-                                    const icon = document.getElementById('icon-right');
-                                    const capitalLetter = "[A-Z]";
-                                    const smallLetter = "[a-z]";
-                                    const specialLettre = "[~!@#$%^&*()_+=-{}]";
-                                    const number = "[0-9]";
-                                    const regExCap = new RegExp(capitalLetter);
-                                    const regexSmall = new RegExp(smallLetter);
-                                    const regExSpLett = new RegExp(specialLettre);
-                                    const regExNum = new RegExp(number);
-                                    const msg_list = document.getElementById('list-msg');
-                                    // if(pass.length() >= 8){
+        <div className="img">
+            {
+                props.isLogin ?
+                    <div className="login-box">
+                        <h2 >Log in</h2>
+                        <p id="wrongInputMsg">Invalid email or password</p>
+                        <div className="ip-box">
+                            <i class="fa-solid fa-envelope" style={{ color: "white" }}></i>
+                            <input type="text" id="email" placeholder="email" className="ip-style" onChange={(e) => {
+                                const msg = document.getElementById('wrongInputMsg');
+                                msg.style.display = "none";
+                                const icon = document.getElementById("check");
+                                const pattern = "^[A-Za-z]+[0-9]+@+gmail+[\.]+com$"
+                                const emailvalue = document.getElementById('email').value;
+                                const regEx = new RegExp(pattern);
+                                if (!regEx.test(emailvalue)) {
+                                    setEmailValid(false);
+                                    icon.style.color = "red";
+                                } else {
+                                    setEmailValid(true);
+                                    setUser({ ...user, email: e.target.value });
+                                    icon.style.color = "green";
+                                }
+                                if (e.target.value === "") {
+                                    setEmailValid(false);
+                                    icon.style.color = "white";
+                                }
+                            }} />
+                            <i class="fa-solid fa-circle-check" id="check" style={{ color: "white" }}></i>
+                        </div>
+
+                        <div className="ip-box" id="password-box">
+                            <i class="fa-solid fa-lock" style={{ color: "white" }}></i>
+                            <input type="password" id="password" placeholder="password" className="ip-style" onChange={(e) => {
+                                const pass = document.getElementById("password").value;
+                                const msg = document.getElementById('wrongInputMsg');
+                                msg.style.display = "none";
+                                const capitalLetter = "[A-Z]";
+                                const smallLetter = "[a-z]";
+                                const specialLettre = "[~!@#$%^&*()_+=-{}]";
+                                const number = "[0-9]";
+                                const regExCap = new RegExp(capitalLetter);
+                                const regexSmall = new RegExp(smallLetter);
+                                const regExSpLett = new RegExp(specialLettre);
+                                const regExNum = new RegExp(number);
+                                const msg_list = document.getElementById('list-msg');
+                                if (pass.length >= 8) {
                                     if (!regExCap.test(pass) || !regexSmall.test(pass) || !regExSpLett.test(pass) || !regExNum.test(pass)) {
-                                        icon.style.color = "red";
                                         msg_list.style.display = "block";
                                         setPassValid(false);
                                     }
                                     else {
-                                        icon.style.color = "green";
                                         setPassValid(true);
                                     }
                                     if (e.target.value === "") {
                                         msg_list.style.display = "none";
-                                        icon.style.color = "white";
                                         setPassValid(false);
                                     }
                                     if (regExCap.test(pass) && regexSmall.test(pass) && regExSpLett.test(pass) && regExNum.test(pass)) {
@@ -138,72 +137,178 @@ export default function UserModelProvider(props) {
                                         setPassValid(true);
                                         setUser({ ...user, password: e.target.value });
                                     }
-                                    // }
-                                    setUser({ ...user, password: e.target.value });
-                                }} />
-                                <i class="fa-solid fa-eye" style={{ color: "white" }} id="eye-icon" onClick={() => {
-                                    const pass = document.getElementById("password");
-                                    const eye_open = document.getElementById('eye-icon');
-                                    const btn = document.getElementById('eye-close');
-                                    btn.classList.toggle('active');
-                                    if (btn.classList.contains('active')) {
-                                        eye_open.style.display = "none";
-                                        pass.type = "text";
+                                }
+                                else {
+                                    msg_list.style.display = "block";
+                                    setPassValid(false);
+                                    if (e.target.value === "") {
+                                        msg_list.style.display = "none";
+                                        setPassValid(false);
                                     }
-                                }}></i>
-                                <i class="fa-solid fa-eye-slash" id="eye-close" onClick={() => {
-                                    const pass = document.getElementById("password");
-                                    const btn = document.getElementById('eye-close');
-                                    const eye_open = document.getElementById('eye-icon');
-                                    btn.classList.toggle('active');
-                                    if (!btn.classList.contains('active')) {
-                                        eye_open.style.display = "inline";
-                                        pass.type = "password";
-                                    }
-                                }}></i>
-                                <i id='icon-right' class="fa-regular fa-circle-check" style={{ color: "white" }}></i>
-                                <ul id="list-msg">
-                                    <li>Password must contain atleast 1 capital letter</li>
-                                    <li>Password must contain atleast 1 small letter</li>
-                                    <li>Password must contain atleast 1 number</li>
-                                    <li>Password must contain atleast 1 special charcter</li>
-                                </ul>
+                                }
+                            }} />
 
-                                <button type="submit" className="btn btn-primary" style={{ width: "70%", borderRadius: "50px", marginBottom: "2vh" }} onClick={() => {
-                                    if (emailValid && passValid) {
-                                        sendModel();
+                            <i class="fa-solid fa-eye" style={{ color: "white" }} id="eye-open" onClick={() => {
+                                const eyeClose = document.getElementById("eye-close");
+                                const eyeOpen = document.getElementById("eye-open");
+                                const pass = document.getElementById("password");
+
+                                eyeOpen.style.display = "none";
+                                pass.type = "password";
+                                eyeClose.style.display = "inline";
+                            }}></i>
+
+                            <i class="fa-solid fa-eye-slash" style={{ color: "white" }} id="eye-close" onClick={() => {
+                                const eyeClose = document.getElementById("eye-close");
+                                const eyeOpen = document.getElementById("eye-open");
+                                const pass = document.getElementById("password");
+
+                                eyeOpen.style.display = "inline";
+                                pass.type = "text";
+                                eyeClose.style.display = "none";
+                            }}></i>
+                        </div>
+                        <ul id="list-msg">
+                            <li>Password must contain atleast 1 capital letter</li>
+                            <li>Password must contain atleast 1 small letter</li>
+                            <li>Password must contain atleast 1 number</li>
+                            <li>Password must contain atleast 1 special charcter</li>
+                            <li>Password length must be more then 8</li>
+                        </ul>
+                        <div className="btn " style={{ backgroundColor: "#e6b36c" }} id="login-btn" onClick={() => {
+                            if (emailValid && passValid) {
+                                sendModel();
+                            }
+                            else {
+                                const msg = document.getElementById('wrongInputMsg');
+                                msg.style.display = "block";
+                            }
+                        }}>Log in</div>
+                        <p id="suggetion" style={{ color: "white" }}>Don't have an account?<Link to={'/seller/signup'}>Sign up</Link></p>
+                    </div> :
+                    <div className="signup-box">
+                        <h2 >Sign up</h2>
+                        <p id="wrongInputMsg">Invalid email or password</p>
+
+                        <div className="ip-box">
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" id="user" placeholder="User Name" className="ip-style" onChange={(e) => {
+                                const icon = document.getElementById("check");
+                                icon.style.color = "green";
+                                if (e.target.value === "") {
+                                    icon.style.color = "white";
+                                }
+                            }} />
+                            <i class="fa-solid fa-circle-check" id="check" style={{ color: "white" }}></i>
+                        </div>
+
+                        <div className="ip-box">
+                            <i class="fa-solid fa-envelope" style={{ color: "white" }}></i>
+                            <input type="text" id="email" placeholder="email" className="ip-style" onChange={(e) => {
+                                const msg = document.getElementById('wrongInputMsg');
+                                msg.style.display = "none";
+                                const icon = document.getElementById("check");
+                                const pattern = "^[A-Za-z]+[0-9]+@+gmail+[\.]+com$"
+                                const emailvalue = document.getElementById('email').value;
+                                const regEx = new RegExp(pattern);
+                                if (!regEx.test(emailvalue)) {
+                                    setEmailValid(false);
+                                    icon.style.color = "red";
+                                } else {
+                                    setEmailValid(true);
+                                    setUser({ ...user, email: e.target.value });
+                                    icon.style.color = "green";
+                                }
+                                if (e.target.value === "") {
+                                    setEmailValid(false);
+                                    icon.style.color = "white";
+                                }
+                            }} />
+                            <i class="fa-solid fa-circle-check" id="check" style={{ color: "white" }}></i>
+                        </div>
+
+                        <div className="ip-box" id="password-box">
+                            <i class="fa-solid fa-lock" style={{ color: "white" }}></i>
+                            <input type="password" id="password" placeholder="password" className="ip-style" onChange={(e) => {
+                                const pass = document.getElementById("password").value;
+                                const msg = document.getElementById('wrongInputMsg');
+                                msg.style.display = "none";
+                                const capitalLetter = "[A-Z]";
+                                const smallLetter = "[a-z]";
+                                const specialLettre = "[~!@#$%^&*()_+=-{}]";
+                                const number = "[0-9]";
+                                const regExCap = new RegExp(capitalLetter);
+                                const regexSmall = new RegExp(smallLetter);
+                                const regExSpLett = new RegExp(specialLettre);
+                                const regExNum = new RegExp(number);
+                                const msg_list = document.getElementById('list-msg');
+                                if (pass.length >= 8) {
+                                    if (!regExCap.test(pass) || !regexSmall.test(pass) || !regExSpLett.test(pass) || !regExNum.test(pass)) {
+                                        msg_list.style.display = "block";
+                                        setPassValid(false);
                                     }
                                     else {
-                                        const msg = document.getElementById('wrongInputMsg');
-                                        msg.style.display = "block";
+                                        setPassValid(true);
                                     }
-                                }}>Log in</button>
-                                <p style={{ color: "white" }}>Don't have an account?<Link to={'/food/auth/signup'}>Sign up</Link></p>
-                            </div>
-                            </div>
+                                    if (e.target.value === "") {
+                                        msg_list.style.display = "none";
+                                        setPassValid(false);
+                                    }
+                                    if (regExCap.test(pass) && regexSmall.test(pass) && regExSpLett.test(pass) && regExNum.test(pass)) {
+                                        msg_list.style.display = "none";
+                                        setPassValid(true);
+                                        setUser({ ...user, password: e.target.value });
+                                    }
+                                }
+                                else {
+                                    msg_list.style.display = "block";
+                                    setPassValid(false);
+                                    if (e.target.value === "") {
+                                        msg_list.style.display = "none";
+                                        setPassValid(false);
+                                    }
+                                }
+                            }} />
 
-                        </> :
-                        <>
-                            <div className='signup' id='sigup'>
-                                <h2>Sign up</h2>
-                                <input type="text" className='ip' placeholder="User Name" onChange={(e) => {
-                                    e.preventDefault();
-                                    setUser({ ...user, userName: e.target.value });
-                                }} /><i class="fa-solid fa-user" style={{ color: "white", marginLeft: "-2vh" }}></i><br />
-                                <input type="text" className='ip' placeholder="email" onChange={(e) => {
-                                    e.preventDefault();
-                                    setUser({ ...user, email: e.target.value });
-                                }} /><i class="fa-solid fa-envelope" style={{ color: "white", marginLeft: "-2vh" }}></i><br />
-                                <input type="text" className='ip' style={{ marginBottom: "4vh" }} placeholder="password" onChange={(e) => {
-                                    e.preventDefault();
-                                    setUser({ ...user, password: e.target.value });
-                                }} /><i class="fa-solid fa-lock" style={{ color: "white", marginLeft: "-2vh" }}></i><br />
-                                <button className="btn btn-primary" onClick={sendModel} style={{ width: "70%", borderRadius: "50px", marginBottom: "2vh" }}>sign up</button>
-                                <p style={{ color: "white" }}>already have an account? <Link to={'/food/auth/login'}>log in</Link></p>
-                            </div>
-                        </>
-                }
-            </div>
-        </>
-    );
+                            <i class="fa-solid fa-eye" style={{ color: "white" }} id="eye-open" onClick={() => {
+                                const eyeClose = document.getElementById("eye-close");
+                                const eyeOpen = document.getElementById("eye-open");
+                                const pass = document.getElementById("password");
+
+                                eyeOpen.style.display = "none";
+                                pass.type = "password";
+                                eyeClose.style.display = "inline";
+                            }}></i>
+
+                            <i class="fa-solid fa-eye-slash" style={{ color: "white" }} id="eye-close" onClick={() => {
+                                const eyeClose = document.getElementById("eye-close");
+                                const eyeOpen = document.getElementById("eye-open");
+                                const pass = document.getElementById("password");
+
+                                eyeOpen.style.display = "inline";
+                                pass.type = "text";
+                                eyeClose.style.display = "none";
+                            }}></i>
+                        </div>
+                        <ul id="list-msg">
+                            <li>Password must contain atleast 1 capital letter</li>
+                            <li>Password must contain atleast 1 small letter</li>
+                            <li>Password must contain atleast 1 number</li>
+                            <li>Password must contain atleast 1 special charcter</li>
+                            <li>Password length must be more then 8</li>
+                        </ul>
+                        <div className="btn " style={{ backgroundColor: "#e6b36c" }} id="login-btn" onClick={() => {
+                            if (emailValid && passValid) {
+                                sendModel();
+                            }
+                            else {
+                                const msg = document.getElementById('wrongInputMsg');
+                                msg.style.display = "block";
+                            }
+                        }}>sign up</div>
+                        <p id="suggetion" style={{ color: "white" }}>Don't have an account?<Link to={'/seller/login'}>log in</Link></p>
+                    </div>
+            }
+        </div >
+    )
 }

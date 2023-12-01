@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const foodSchema = mongoose.Schema({
+    sellerId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Seller'
+    },
     sellerName: {
         type : String,
         required: true

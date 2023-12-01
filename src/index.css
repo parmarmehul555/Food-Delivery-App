@@ -20,6 +20,13 @@ code {
   width: 18vh;
 }
 
+nav {
+  position: sticky !important;
+  top: 0 !important;
+  background-color: transparent !important;
+  z-index: 1;
+}
+
 .logo img {
   object-fit: contain;
   width: 115%;
@@ -36,21 +43,21 @@ code {
   background-repeat: no-repeat;
 }
 
-.home-msg{
+.home-msg {
   font-size: 50px;
   color: white;
   font-family: 'EB Garamond', serif;
 }
 
-.home-msg text{
+.home-msg text {
   font-family: 'EB Garamond', serif;
 }
 
-.home-msg span{
+.home-msg span {
   color: orange;
 }
 
-#darkBg{
+#darkBg {
   background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100%;
@@ -60,7 +67,7 @@ code {
   justify-content: space-evenly;
 }
 
-.login{
+.login {
   height: 50vh;
   padding-top: 9vh;
   background: rgba(0, 0, 0, 0.5);
@@ -69,33 +76,61 @@ code {
   margin: 0 auto;
   margin-top: -89vh;
   text-align: center;
+
   /* display: none; */
 }
 
-.login h2,.signup h2{
+.login h2,
+.signup h2 {
   /* padding-top: -5vh; */
   /* margin-top: -110vh; */
   margin-bottom: 6vh;
   color: white;
 }
 
-.ip{
+.signup-box #email{
+  margin-top: 5vh;
+}
+
+.ip {
   background-color: transparent;
   border: none;
   color: white;
-  width: 35vh;
+  width: 100%;
   outline: none;
   border-bottom: 2px solid white;
-  margin-bottom: 2vh;
-  /* border-radius: 10px; */
+  /* margin-top: 5vh; */
 }
 
-.ip::placeholder{
+#ip-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ip::placeholder {
   color: white;
   padding-left: 3px;
 }
 
-.signup{
+#user {
+  margin-left: 2vh;
+}
+
+#email {
+  margin-left: 2vh;
+}
+
+#password {
+  margin-top: 5vh;
+  margin-left: 2vh;
+}
+
+#ip-email {
+  margin-right: -2vh;
+}
+
+.signup {
   height: 50vh;
   padding-top: 9vh;
   width: 20%;
@@ -105,82 +140,76 @@ code {
   text-align: center;
 }
 
-#img img{
+.img {
+  height: 43rem;
   width: 100%;
-  height: 100%;
-}
-
-
-.signup .btn,.login .btn{
-  background-color: #f55b03 !important;
-  outline: none !important;
-}
-
-#wrongInputMsg{
-  color: red;
-  display: none;
-}
-
-#icon{
-  color: white;
-  position: relative;
-  right: 2vh;
-}
-
-#list-msg{
-  color: white;
-  display: none;
-  font-size: 14px;
-  list-style-type: none;
-  margin-left: -5vh;
-}
-
-#icon-right{
-  position: relative;
-  left:31vh;
-  bottom: 10vh;
-}
-
-#eye-icon{
-  position: relative;
-  display: inline;
-  right: 3vh;
-}
-
-#eye-close{
-  display: none;
-  position: relative;
-  right: 3vh;
-  color: white;
-}
-
-#eye-close.active{
-  display: inline;
-}
-
-ul li {
-  color: white;
-}
-
-#logOutBtn{
-  display: none;
-}
-
-#logOutBtn.active{
-  display: block;
-}
-
-#ip-box{
+  background-image: url('https://www.svapinfotech.com/data/media/orginal/food-delivery-2-5459.jpg');
+  background-size: cover;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-/* #all-box{
-  margin-left: 10vh; */
-/* } */ */
+.login-box,
+.signup-box {
+  height: auto;
+  width: 30%;
+  color: white;
+}
+
+.login-box h2,
+.signup-box h2 {
+  margin-bottom: 8vh;
+}
+
+.ip-box {
+  margin-top: 0vh;
+  font-size: 18px;
+}
+
+.ip-style {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-bottom: 2px solid #FFF;
+  margin: 0 1vh;
+  color: white;
+}
+
+.ip-style::placeholder {
+  color: white;
+}
+
+#password-box {
+  margin-bottom: 5vh;
+}
+
+#eye-open {
+  display: none;
+}
+
+#login-btn {
+  margin-bottom: 3vh;
+  width: 60%;
+  border-radius: 50px;
+  font-size: 19px;
+}
+
+#wrongInputMsg {
+  display: none;
+}
+
+#list-msg {
+  display: none;
+  list-style-type: none;
+  font-size: 15px;
+  /* text-align: center; */
+}
 
 /* #e6b36c */
 
-#foodIdCard{
+#foodIdCard {
   display: flex;
 }
 
@@ -189,4 +218,229 @@ ul li {
   width: 200px;
   border-radius: 10px;
   margin-right: 10vh;
+}
+
+/* Seller */
+#foodData {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url('https://e0.pxfuel.com/wallpapers/960/466/desktop-wallpaper-meloddy-paneer-tikka-fast-food-home-delivery-order-online-lodha-school-central-pali-pali.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.formIp {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5vh;
+}
+
+#food-details {
+  border-radius: 10px;
+  padding: 5vh;
+  border: 2px double #E8BCB9;
+  background-color: transparent;
+  backdrop-filter: blur(10px);
+}
+
+#food-details h1 {
+  border-style: dashed;
+  border-width: 5px;
+  padding: 10px;
+  color: #FFF;
+  animation-name: changeColor;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes changeColor {
+  0% {
+    border-color: #26425A;
+  }
+
+  25% {
+    border-color: #B6ABCF;
+  }
+
+  50% {
+    border-color: #E1CBD7;
+  }
+
+  75% {
+    border-color: #9709f5;
+  }
+
+  100% {
+    border-color: rgb(228, 10, 181);
+  }
+}
+
+#food-details form .formIp .ipField {
+  background-color: transparent;
+  color: white;
+  border-bottom: 2px solid #E8BCB9 !important;
+  border: none;
+  outline: none;
+  font-size: 18px;
+}
+
+#food-details form .formIp .ipField::placeholder {
+  color: white;
+}
+
+.text {
+  font-size: 21px;
+}
+
+/* Media Query (SELLER)*/
+@media screen and (max-width :885px) {
+
+  .img {
+    background-size: contain;
+    background-repeat: no-repeat;
+    /* background-position: right; */
+  }
+
+  .login-box,
+  .signup-box {
+    width: 35%;
+  }
+
+  .login-box h2,
+  .signup-box h2 {
+    margin-top: -15rem;
+  }
+
+  #user {
+    margin-top: 6vh;
+    width: 70%;
+  }
+
+  #email {
+    width: 70%;
+  }
+
+  #password {
+    width: 70%;
+  }
+
+  .ip-box {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 15px;
+    align-items: baseline;
+  }
+
+  #list-msg {
+    font-size: 12px;
+    text-align: left;
+    margin-left: -2vh;
+  }
+}
+
+@media screen and (max-width :576px) {
+  .img {
+    background-size: cover;
+    background-position: right;
+    background-repeat: no-repeat;
+  }
+
+  .login-box,
+  .signup-box {
+    background-color: transparent;
+    backdrop-filter: blur(3px);
+    align-items: center;
+    width: 80%;
+    border: 2px solid #3e7200;
+    border-radius: 10px;
+  }
+
+  .login-box h2 {
+    margin-top: 6vh;
+    margin-bottom: -1rem;
+  }
+
+  .signup-box h2 {
+    margin-top: 3vh;
+    margin-bottom: 0vh;
+  }
+
+  .login-box #suggetion {
+    margin-top: 1vh;
+  }
+}
+
+@media screen and (max-width :357px) {
+  .img {
+    background-size: cover;
+    background-position: right;
+    background-repeat: no-repeat;
+  }
+
+  .login-box,
+  .signup-box {
+    background-color: transparent;
+    backdrop-filter: blur(3px);
+    align-items: center;
+    width: 80%;
+    border: 2px solid #3e7200;
+    border-radius: 10px;
+  }
+
+  .login-box h2 {
+    margin-top: 6vh;
+  }
+
+  .signup-box h2 {
+    margin-top: 3vh;
+    margin-bottom: 0vh;
+  }
+
+  .login-box #suggetion {
+    margin-top: 1vh;
+  }
+}
+
+/* Media query (AUTH) */
+@media screen and (max-width : 1200px) {
+  .foodCard{
+    width: 14rem !important;
+  }
+}
+
+@media screen and (max-width : 992px) {
+  .foodCard{
+    width: 11rem !important;
+  }
+}
+
+@media screen and (max-width : 756px) {
+  .foodCard{
+    width: 15rem !important;
+    height: 55vh !important;
+  }
+}
+
+@media screen and (max-width : 479px) {
+  .col-12{
+    margin-left: 9vh;
+  }
+
+  .oneCard{
+    display: flex ;
+    flex-direction: column ;
+    text-align: center;
+  }
+
+  .oneCard img{
+    margin-left: 10vh;
+  }
+}
+
+@media screen and (max-width : 357px) {
+  .oneCard img{
+    margin-left: 8vh;
+  }
 }

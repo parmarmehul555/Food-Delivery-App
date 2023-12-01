@@ -1,10 +1,17 @@
 import foodContext from "./foodContext";
 import useGetAllFood from "../hooks/useGetAllFood";
+import { useParams } from "react-router-dom";
+import useGetFoodById from "../hooks/useGetFoodById";
+import { useState } from "react";
+
 
 const FoodContextProvider = ({ children }) => {
-    const [food, setFood] = useGetAllFood();
+    const {foodId} = useParams();
+    const [data, setData] = useState({});
+    const [food] = useGetFoodById(foodId);
+    setData(food);
     return (
-        <foodContext.Provider value={{ food, setFood }}>
+        <foodContext.Provider value={{ data, setData }}>
             {children}
         </foodContext.Provider>)
 }
