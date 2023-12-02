@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams,Link } from "react-router-dom";
 
 export default function EditFood() {
     const [data, setData] = useState({});
@@ -96,14 +96,15 @@ export default function EditFood() {
                             justifyContent: "space-evenly",
                             marginTop: "10px"
                         }}>
-                            <button type="button" className="btn btn-outline-success input-value" onClick={(e) => {
+                            <Link to={'/seller/dashboard'}><button type="button" className="btn btn-outline-success input-value" onClick={(e) => {
                                 handleDataChanges(e);
                                 const input_box = document.getElementsByClassName("input-value");
                                 for (let temp of input_box) {
                                     temp.value = "";
                                 }
-                            }}>save changes</button>
-                            <button type="reset" className="btn btn-danger">Reset</button>
+                                navigate('/seller/dashboard');
+                            }}>save changes</button></Link>
+                            <Link to={'/seller/dashboard'}><button type="reset" className="btn btn-danger">cancel</button></Link>
                         </div>
 
                     </form>

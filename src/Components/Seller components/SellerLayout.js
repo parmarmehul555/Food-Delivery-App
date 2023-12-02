@@ -4,7 +4,7 @@ export default function Layout() {
     return (
         <>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
-                <div className="container-fluid">
+                <div className="container-fluid ">
                     <a className="navbar-brand">BityBuddy</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -22,8 +22,7 @@ export default function Layout() {
                             </li>
                         </ul>
                         <form className="d-flex" >
-                            <input className="form-control me-2" type="text" placeholder="Search" aria-label="Search" id='searchBtn' />
-                            <button className="btn btn-outline-success" >Search</button>
+                            <input className="form-control me-2 border border-2 border-success" type="text" placeholder="Search" aria-label="Search" id='searchBtn' />
                         </form>
                     </div>
                 </div>

@@ -23,8 +23,35 @@ code {
 nav {
   position: sticky !important;
   top: 0 !important;
-  background-color: transparent !important;
   z-index: 1;
+}
+
+.nav-link {
+  font-size: 18px;
+}
+
+nav .nav-link:hover {
+  color: #fc8019 !important;
+  transition: 0.1s;
+}
+
+.bgColor {
+  background-color: #fc8019 !important;
+}
+
+.row:hover {
+  background-color: rgba(19, 128, 201, 0.645);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.customerRow {
+  font-size: 20px;
+}
+
+.col {
+  border: 2px solid #1B3358 !important;
 }
 
 .logo img {
@@ -88,7 +115,7 @@ nav {
   color: white;
 }
 
-.signup-box #email{
+.signup-box #email {
   margin-top: 5vh;
 }
 
@@ -121,22 +148,22 @@ nav {
   margin-left: 2vh;
 }
 
-#address{
+#address {
   margin-left: 2vh;
   margin-bottom: 5vh;
 }
 
-#number{
+#number {
   margin-left: 2vh;
   margin-bottom: 5vh;
 }
 
-#numberUser{
+#numberUser {
   margin-left: 2vh;
 }
 
-#userUser{
-  margin-bottom: 5vh; 
+#userUser {
+  margin-bottom: 5vh;
 }
 
 #password {
@@ -312,7 +339,7 @@ nav {
   font-size: 21px;
 }
 
-.img-order{
+.img-order {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -320,9 +347,10 @@ nav {
   flex-direction: column;
 }
 
-.img-order img{
+.img-order img {
   height: 70%;
 }
+
 /* Media Query (SELLER)*/
 @media screen and (max-width :885px) {
 
@@ -376,7 +404,7 @@ nav {
     background-repeat: no-repeat;
   }
 
-  .signup-box{
+  .signup-box {
     margin-top: -9vh;
   }
 
@@ -402,13 +430,29 @@ nav {
     margin-top: 1vh;
   }
 
-  #userUser{
+  #userUser {
     margin-top: 5vh;
   }
 
+  /* Seller */
+  
+
+  .ipField{
+    color: #fc8019 !important;
+    font-size: 22px !important;
+  }
 }
 
 @media screen and (max-width :357px) {
+  #foodData {
+    /* background-position: calc(50px); */
+    /* background-position: 100%;  */
+    width: 100%;
+  }
+  #food-details{
+    background-color: red;
+    width: 50%;
+  }
   .img {
     background-size: cover;
     background-position: right;
@@ -441,42 +485,42 @@ nav {
 
 /* Media query (AUTH) */
 @media screen and (max-width : 1200px) {
-  .foodCard{
+  .foodCard {
     width: 14rem !important;
   }
 }
 
 @media screen and (max-width : 992px) {
-  .foodCard{
+  .foodCard {
     width: 11rem !important;
   }
 }
 
 @media screen and (max-width : 756px) {
-  .foodCard{
+  .foodCard {
     width: 15rem !important;
     height: 55vh !important;
   }
 }
 
 @media screen and (max-width : 479px) {
-  .col-12{
+  .col-12 {
     margin-left: 9vh;
   }
 
-  .oneCard{
-    display: flex ;
-    flex-direction: column ;
+  .oneCard {
+    display: flex;
+    flex-direction: column;
     text-align: center;
   }
 
-  .oneCard img{
+  .oneCard img {
     margin-left: 10vh;
   }
 }
 
 @media screen and (max-width : 357px) {
-  .oneCard img{
+  .oneCard img {
     margin-left: 8vh;
   }
 }

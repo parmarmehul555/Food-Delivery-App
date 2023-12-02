@@ -222,7 +222,7 @@ export default function UserModelProvider(props) {
                         <div className="ip-box">
                         <i class="fa-solid fa-phone"></i>
                             <input type="text" id="numberUser" placeholder="Phone number" className="ip-style" onChange={(e) => {
-                                const number = document.getElementById('number').value;
+                                const number = document.getElementById('numberUser').value;
                                 const icon = document.getElementById("check");
                                 if (number.length > 0 && number.length == 10) {
                                     icon.style.color = "green";
@@ -233,7 +233,7 @@ export default function UserModelProvider(props) {
                                 if (e.target.value === "") {
                                     icon.style.color = "white";
                                 }
-                                setUser({ ...user, phno: e.target.value });
+                                setUser({ ...user, number: e.target.value });
                             }} />
                             <i class="fa-solid fa-circle-check" id="check" style={{ color: "white" }}></i>
                         </div>
@@ -335,7 +335,7 @@ export default function UserModelProvider(props) {
                                 if (e.target.value === "") {
                                     icon.style.color = "white";
                                 }
-                                setUser({ ...user, phno: e.target.value });
+                                setUser({ ...user, address: e.target.value });
                             }} />
                             <i class="fa-solid fa-circle-check" id="check" style={{ color: "white" }}></i>
                         </div>

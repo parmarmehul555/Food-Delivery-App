@@ -30,8 +30,7 @@ export default function AddFood(props) {
                 width: "100%",
             }}>
                 <div id="food-details">
-                    <h1 style={{
-                    }}>Add Food Details</h1>
+                    <h1 style={{textAlign:"center"}}>Add Food Details</h1>
                     <form action="/restorent/seller/fooddetails" method="POST" enctype="multipart/form-data" onSubmit={(e) => {
                         handleData(e);
                         const input_box = document.getElementsByClassName("input-value");
@@ -47,7 +46,6 @@ export default function AddFood(props) {
                         </div>
                         <div className="formIp">
                             <input className="ipField" type="text" placeholder="Food Price" value={data.foodPrice} onChange={(e) => {
-                                console.log(e.target.value);
                                 setData({ ...data, price: e.target.value })
                             }} />
                         </div>
