@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams,Link } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function EditFood() {
     const [data, setData] = useState({});
@@ -92,14 +93,32 @@ export default function EditFood() {
                             marginTop: "10px"
                         }}>
                             <Link to={'/seller/dashboard'}><button type="button" className="btn btn-outline-success input-value" onClick={(e) => {
-                                handleDataChanges(e);
+                                const btn = Swal.fire({
+                                    title: "Are you sure?",
+                                    icon: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#3085d6",
+                                    cancelButtonColor: "#d33",
+                                    confirmButtonText: "Yes"
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        Swal.fire({
+                                            title: "Done!",
+                                            text: "Data saved successfully!",
+                                            icon: "success"
+                                        });
+                                        handleDataChanges(e);
+                                        navigate('/seller/dashboard');
+                                    }else{
+                                    navigate(`/seller/${data._id}`)
+                                    }
+                                });
                                 const input_box = document.getElementsByClassName("input-value");
                                 for (let temp of input_box) {
                                     temp.value = "";
                                 }
-                                navigate('/seller/dashboard');
                             }}>save changes</button></Link>
-                            <Link to={'/seller/dashboard'}><button type="reset" className="btn btn-danger">cancel</button></Link>
+                            <Link to={'/seller/dashboard'}><button type="reset" className="btn btn-danger" >cancel</button></Link>
                         </div>
 
                     </form>

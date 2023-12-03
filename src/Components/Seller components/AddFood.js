@@ -3,8 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import foodContext from "../../context/foodContext";
 
-export default function AddFood(props) {
-    console.log(props);
+export default function AddFood() {
     const [data, setData] = useState({});
 
     function handleData(e) {
@@ -17,9 +16,14 @@ export default function AddFood(props) {
         formData.append("description", data.description);
         formData.append("img", data.img);
         formData.append("type", data.type);
-        console.log(formData.get("price"));
 
-        const result = axios.post('https://bitebuddy-rgzf.onrender.com/restorent/seller/fooddetails', formData, { headers: { 'Content-Type': 'multipart/form-data', 'authorization': `bearer ${token}` } })
+        const result = axios.post('https://bitebuddy-rgzf.onrender.com/restorent/seller/fooddetails',
+            formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'authorization': `bearer ${token}`
+            }
+        })
     }
 
     return (
@@ -67,7 +71,7 @@ export default function AddFood(props) {
                             justifyContent: "space-evenly",
                             marginTop: "10px"
                         }}>
-                            <button className="btn btn-outline-success input-value">{props.isAdd ? "send" : "save changes"}</button>
+                            <button className="btn btn-outline-success input-value">Add</button>
                             <button type="reset" className="btn btn-danger">Reset</button>
                         </div>
 

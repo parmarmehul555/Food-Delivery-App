@@ -32,6 +32,9 @@ export default function UserModelProvider(props) {
             })
             .then(async (res) => {
                 const token = await res.token;
+                const data = await res.isUser
+                setUser(data);
+
                 localStorage.setItem("auth-token", token);
                 localStorage.getItem("auth-token") ? navigate('/user') : navigate('/food/auth/signup');
             })
@@ -39,7 +42,7 @@ export default function UserModelProvider(props) {
                 console.error("Error during login:", error);
             });
         setToken(localStorage.getItem("auth-token"));
-        console.log("user from event is ",user);
+        console.log("user from event is ", user);
     }
 
     function signup() {
@@ -178,9 +181,10 @@ export default function UserModelProvider(props) {
                             <li>Password must contain atleast 1 special charcter</li>
                             <li>Password length must be more then 8</li>
                         </ul>
-                        <div className="btn " style={{ backgroundColor: "#e6b36c" }} id="login-btn" onClick={() => {
+                        <div className="btn " style={{ backgroundColor: "#e6b36c" }} id="login-btn" onClick={async () => {
                             if (emailValid && passValid) {
                                 sendModel();
+                                const username = await user.username
                                 const Toast = Swal.mixin({
                                     toast: true,
                                     position: "top-end",
@@ -194,7 +198,7 @@ export default function UserModelProvider(props) {
                                 });
                                 Toast.fire({
                                     icon: "success",
-                                    title: `Welcomeback ${user.username}`
+                                    title: `Welcomeback ${username}`
                                 });
                             }
                             else {
@@ -245,7 +249,7 @@ export default function UserModelProvider(props) {
                             <input type="text" id="email" placeholder="email" className="ip-style" onChange={(e) => {
                                 const msg = document.getElementById('wrongInputMsg');
                                 msg.style.display = "none";
-                                const icon = document.getElementById("check");
+                                const icon = document.getElementById("checkEmail");
                                 const pattern = "^[A-Za-z]+[0-9]+@+gmail+[\.]+com$"
                                 const emailvalue = document.getElementById('email').value;
                                 const regEx = new RegExp(pattern);
@@ -262,7 +266,7 @@ export default function UserModelProvider(props) {
                                     icon.style.color = "white";
                                 }
                             }} />
-                            <i class="fa-solid fa-circle-check" id="check" style={{ color: "white" }}></i>
+                            <i class="fa-solid fa-circle-check" id="checkEmail" style={{ color: "white" }}></i>
                         </div>
 
                         <div className="ip-box" id="password-box">
@@ -332,14 +336,14 @@ export default function UserModelProvider(props) {
                         <div className="ip-box">
                             <i class="fa-solid fa-house"></i>
                             <input type="text" id="address" placeholder="Address" className="ip-style" onChange={(e) => {
-                                const icon = document.getElementById("check");
+                                const icon = document.getElementById("checkAddress");
                                 icon.style.color = "green";
                                 if (e.target.value === "") {
                                     icon.style.color = "white";
                                 }
                                 setUser({ ...user, address: e.target.value });
                             }} />
-                            <i class="fa-solid fa-circle-check" id="check" style={{ color: "white" }}></i>
+                            <i class="fa-solid fa-circle-check" id="checkAddress" style={{ color: "white" }}></i>
                         </div>
                         <ul id="list-msg">
                             <li>Password must contain atleast 1 capital letter</li>
@@ -348,25 +352,10 @@ export default function UserModelProvider(props) {
                             <li>Password must contain atleast 1 special charcter</li>
                             <li>Password length must be more then 8</li>
                         </ul>
-                        <div className="btn " style={{ backgroundColor: "#e6b36c" }} id="login-btn" onClick={() => {
+                        <div className="btn " style={{ backgroundColor: "#e6b36c" }} id="login-btn" onClick={async () => {
                             console.log("data is ", user);
                             if (emailValid && passValid) {
                                 sendModel();
-                                const Toast = Swal.mixin({
-                                    toast: true,
-                                    position: "top-end",
-                                    showConfirmButton: false,
-                                    timer: 3000,
-                                    timerProgressBar: true,
-                                    didOpen: (toast) => {
-                                        toast.onmouseenter = Swal.stopTimer;
-                                        toast.onmouseleave = Swal.resumeTimer;
-                                    }
-                                });
-                                Toast.fire({
-                                    icon: "success",
-                                    title: `Welcome-back ${user.username}`
-                                });
                             }
                             else {
                                 const msg = document.getElementById('wrongInputMsg');
