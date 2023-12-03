@@ -8,7 +8,7 @@ export default function ChangeFood() {
 
     useEffect(()=>{
         const token = localStorage.getItem("seller-token");
-        fetch("http://localhost:3030/restorent/seller/seller/"+foodId,{
+        fetch("https://bitebuddy-rgzf.onrender.com/restorent/seller/seller/"+foodId,{
             headers:{
                 'Content-Type':'application/json',
                 'authorization':`bearer ${token}`

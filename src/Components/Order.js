@@ -8,7 +8,7 @@ export default function Order() {
         return (
             <div key={item._id} class="card" style={{ marginTop: "2vh" }}>
                 <h5 class="card-header">{item.restorentName}</h5>
-                <div class="card-body" id="foodIdCard">
+                <div class="card-body orderFoodCardBody" id="foodIdCard">
                     <div><img src={item.foodImg} alt="food img" /></div>
                     <div>
                         <h5 class="card-title">{item.foodName}</h5>

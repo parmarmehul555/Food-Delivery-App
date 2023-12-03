@@ -7,20 +7,21 @@ import '../index.css';
 import { useEffect } from "react";
 
 export default function Food() {
-    
+
     const [allFood] = useGetAllFood();
     const navigate = useNavigate();
     const [orderFood, setOrderFood, count, setCount] = useGetCartFood();
-    console.log(";;;;;;;;;;;;;", count);
 
-    localStorage.setItem("count", count);
+    useEffect(() => {
+        localStorage.setItem("count", count);
+    }, [count])
 
     const food = useSelector(state => state.food.foods);
     let formattedData = food.map((item) => {
         return (
             <>
-                <div className={window.innerWidth <= 756 && window.innerWidth >= 568 ? "col-6 card" : (window.innerWidth <= 479 ? "col-12" : "col-3")}>
-                    <div class="card foodCard my-2" style={{ width: "17rem", height: "53vh" }} onClick={() => {
+                <div className={window.innerWidth <= 756 && window.innerWidth >= 568 ? "col-6 foodCard" : (window.innerWidth <= 479 ? "col-12 foodCard" : "col-3 foodCard")}>
+                    <div class="card foodCardDetails my-2" style={{ width: "17rem", height: "53vh" }} onClick={() => {
                         navigate(`/food/${item.sellerName}`)
                     }}>
                         <img style={{ height: "225px" }} src={item.foodImg} class="card-img-top" alt="Food Img" />
@@ -37,7 +38,7 @@ export default function Food() {
 
     return (
         <>
-            <div className="container">
+            <div className="container foodContainer">
                 <div className="row">
                     {formattedData}
                 </div>

@@ -59,7 +59,7 @@ export default function Cart() {
                             // count > 0 ? dispatch(decrementCartCount(1)) : dispatch(decrementCartCount(0));
                             localStorage.setItem("count", count - 1);
                             count > 0 ? dispatch(decrementCartCount(1)) : localStorage.setItem("count", 0);
-                            await fetch(`http://localhost:3030/food/auth/deleteorder/${item._id}`, {
+                            await fetch(`https://bitebuddy-rgzf.onrender.com/food/auth/deleteorder/${item._id}`, {
                                 method: 'DELETE',
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ export default function Cart() {
                                         foodImg: item.foodImg
                                     }
                                     handleDeliverdFood(data);
-                                    await fetch(`http://localhost:3030/food/auth/deleteorder/${item._id}`, {
+                                    await fetch(`https://bitebuddy-rgzf.onrender.com/food/auth/deleteorder/${item._id}`, {
                                         method: 'DELETE',
                                         headers: {
                                             'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ export default function Cart() {
                     {formattedCartList}
                 </div>
                 :
-                <div style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
                     <img src="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-7359557-6024626.png" alt="empty cart img" />
                     <h1>Your cart is empty!!</h1>
                 </div>

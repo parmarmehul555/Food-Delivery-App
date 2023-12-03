@@ -4,7 +4,7 @@ function useGetCustomerDetails() {
     const [customers, setCustomers] = useState([]);
     const token = localStorage.getItem("seller-token");
     useEffect(() => {
-        fetch("http://localhost:3030/food/auth/yourcustomers", {
+        fetch("https://bitebuddy-rgzf.onrender.com/food/auth/yourcustomers", {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',

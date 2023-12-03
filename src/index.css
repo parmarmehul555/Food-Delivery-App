@@ -32,14 +32,23 @@ nav {
 
 nav .nav-link:hover {
   color: #fc8019 !important;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.603);
   transition: 0.1s;
+}
+
+#uesr-details{
+  display: none;
+}
+
+#oneCardDetails{
+  margin-left: 2vh;
 }
 
 .bgColor {
   background-color: #fc8019 !important;
 }
 
-.row:hover {
+.rowSeller:hover {
   background-color: rgba(19, 128, 201, 0.645);
   color: white;
   cursor: pointer;
@@ -60,6 +69,33 @@ nav .nav-link:hover {
   height: 225%;
   margin-top: -6vh;
   margin-left: -2vh;
+}
+
+.oneCardFood{
+  z-index: 1;
+}
+
+.oneCardFood:hover{
+  color: white;
+}
+
+.oneCardFood::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: 0;
+  z-index: -1;
+  transition: 0.8s;
+  background-color: #fc8019;
+}
+
+.oneCardFood:hover::before{
+  content: "";
+  height: 100%;
+  width: 100%;
+  transform-origin: left;
 }
 
 /* CSS of Home */
@@ -171,6 +207,10 @@ nav .nav-link:hover {
   margin-left: 2vh;
 }
 
+#food-product {
+  font-size: 20px;
+}
+
 #ip-email {
   margin-right: -2vh;
 }
@@ -262,7 +302,11 @@ nav .nav-link:hover {
   height: 175px;
   width: 200px;
   border-radius: 10px;
-  margin-right: 10vh;
+  margin-left: 0vh;
+}
+
+nav {
+  width: 100% !important;
 }
 
 /* Seller */
@@ -274,6 +318,12 @@ nav .nav-link:hover {
   background-image: url('https://e0.pxfuel.com/wallpapers/960/466/desktop-wallpaper-meloddy-paneer-tikka-fast-food-home-delivery-order-online-lodha-school-central-pali-pali.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  color: white;
+  height: 100vh;
+}
+
+.foodDashboard {
+  width: 99%;
 }
 
 .formIp {
@@ -282,12 +332,17 @@ nav .nav-link:hover {
   margin-top: 5vh;
 }
 
+.foodContainer {
+  width: 100%;
+}
+
 #food-details {
   border-radius: 10px;
   padding: 5vh;
   border: 2px double #E8BCB9;
   background-color: transparent;
   backdrop-filter: blur(10px);
+  width: 29%;
 }
 
 #food-details h1 {
@@ -351,6 +406,14 @@ nav .nav-link:hover {
   height: 70%;
 }
 
+.foodCardDetails:hover{
+  transform: translateY(-8px);
+  box-shadow: 10px 10px 10px 0px gray;
+  cursor: pointer;
+  transition: 0.5s;
+  /* transform: translateZ(-10px); */
+}
+
 /* Media Query (SELLER)*/
 @media screen and (max-width :885px) {
 
@@ -383,6 +446,10 @@ nav .nav-link:hover {
     width: 70%;
   }
 
+  #oneCardDetails {
+    margin-left: 5vh;
+  }
+
   .ip-box {
     display: flex;
     justify-content: space-evenly;
@@ -395,9 +462,35 @@ nav .nav-link:hover {
     text-align: left;
     margin-left: -2vh;
   }
+
+  .orderFoodCardBody {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  #foodData {
+    height: 140vh;
+    width: 102%;
+    text-align: center;
+  }
+
+  #food-details {
+    width: 50%;
+  }
+
+  #food-product {
+    font-size: 17px;
+  }
 }
 
 @media screen and (max-width :576px) {
+  nav {
+    width: 100% !important;
+  }
+
   .img {
     background-size: cover;
     background-position: right;
@@ -434,13 +527,30 @@ nav .nav-link:hover {
     margin-top: 5vh;
   }
 
-  /* Seller */
-  
+  .foodCard {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
 
-  .ipField{
-    color: #fc8019 !important;
+
+  /* Seller */
+  .ipField {
+    color: #FFF !important;
     font-size: 22px !important;
   }
+
+  #foodData {
+    background-position: -870px;
+
+  }
+
+  #food-details {
+    margin-top: -15vh;
+    width: 95%;
+  }
+
 }
 
 @media screen and (max-width :357px) {
@@ -449,10 +559,12 @@ nav .nav-link:hover {
     /* background-position: 100%;  */
     width: 100%;
   }
-  #food-details{
+
+  #food-details {
     background-color: red;
     width: 50%;
   }
+
   .img {
     background-size: cover;
     background-position: right;

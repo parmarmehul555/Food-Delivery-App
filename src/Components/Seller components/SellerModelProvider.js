@@ -8,7 +8,7 @@ export default function SellerModelProvider(props) {
     const navigate = useNavigate();
 
     function login() {
-        fetch("http://localhost:3030/restorent/seller/login", {
+        fetch("https://bitebuddy-rgzf.onrender.com/restorent/seller/login", {
             method: 'POST',
             body: JSON.stringify(seller),
             headers: {
@@ -38,7 +38,7 @@ export default function SellerModelProvider(props) {
     }
 
     function signup() {
-        fetch("http://localhost:3030/restorent/seller/signup", {
+        fetch("https://bitebuddy-rgzf.onrender.com/restorent/seller/signup", {
             method: 'POST',
             body: JSON.stringify(seller),
             headers: {
@@ -79,7 +79,7 @@ export default function SellerModelProvider(props) {
                 props.isLogin ?
                     <div className="login-box">
                         <h2 >Log in</h2>
-                        <p id="wrongInputMsg">Invalid email or password</p>
+                        <p id="wrongInputMsg" style={{color:"red"}}>Invalid email or password</p>
                         <div className="ip-box">
                             <i class="fa-solid fa-envelope" style={{ color: "white" }}></i>
                             <input type="text" id="email" placeholder="email" className="ip-style" onChange={(e) => {

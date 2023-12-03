@@ -13,17 +13,17 @@ export default function Home() {
                 <div className="row" onClick={(e) => {
                     console.log("id ", item._id)
                 }}>
-                    <div className="col text">
-                        <p>{item.foodName}</p>
+                    <div className="col">
+                        <text id="food-product">{item.foodName}</text>
                     </div>
-                    <div className="col text">
-                        <p>{item.foodDescription}</p>
+                    <div className="col">
+                        <text id="food-product">{item.foodDescription}</text>
                     </div>
-                    <div className="col text">
-                        <p>{item.foodType}</p>
+                    <div className="col">
+                        <text id="food-product">{item.foodType}</text>
                     </div>
-                    <div className="col text">
-                        <p>{item.foodPrice}</p>
+                    <div className="col">
+                        <text id="food-product">{item.foodPrice}</text>
                     </div>
                     <div className="col">
                     <h5><i class="fa-solid fa-pen text-success cursor" onClick={() => {
@@ -33,7 +33,7 @@ export default function Home() {
                     <div className="col ">
                         <h5><i class="fa-solid fa-trash text-danger cursor" onClick={(e) => {
                             const token = localStorage.getItem("seller-token");
-                            fetch('http://localhost:3030/restorent/seller/deletefood', {
+                            fetch('https://bitebuddy-rgzf.onrender.com/restorent/seller/deletefood', {
                                 method: "DELETE",
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -50,29 +50,27 @@ export default function Home() {
     })
 
     return (
-        <div className="" >
-        <div className="container text-center border " style={{backgroundImage:"linear-gradient(45deg,#D1916D,#F5D7DB,#BD8388)"}}>
+        <div className="container-fluied text-center border foodDashboard" style={{backgroundImage:"linear-gradient(45deg,#D1916D,#F5D7DB,#BD8388)"}}>
             <div className="row">
                 <div className="col text-light">
-                    <h4>Food Name</h4>
+                    <h5>Name</h5>
                 </div>
                 <div className="col text-light">
-                    <h4>Food Description</h4>
+                    <h5>Description</h5>
                 </div>
                 <div className="col text-light">
-                    <h4>Food Type</h4>
+                    <h5>Type</h5>
                 </div>
                 <div className="col text-light">
-                    <h4>Food Price</h4>
+                    <h5>Price</h5>
                 </div>
                 <div className="col text-light">
-                    <h4>Edit Food Data</h4>
+                    <h5>Edit</h5>
                 </div><div className="col text-light">
-                    <h4>Remove Food</h4>
+                    <h5>Remove</h5>
                 </div>
             </div>
             {formattedData}
-        </div>
         </div>
     )
 }

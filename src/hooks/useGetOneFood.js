@@ -5,7 +5,7 @@ function useGetOneFood(sellerName) {
     const token = localStorage.getItem("auth-token");
     const [order, setOrder] = useState([]);
     useEffect(() => {
-        fetch(`http://localhost:3030/restorent/seller/food/${sellerName}`, {
+        fetch(`https://bitebuddy-rgzf.onrender.com/restorent/seller/food/${sellerName}`, {
             method: "GET",
             headers: {
                 'Cntent-Type': 'application/json',

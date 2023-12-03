@@ -8,7 +8,7 @@ export default function EditFood() {
     const token = localStorage.getItem("seller-token");
     const navigate = useNavigate();
     useEffect(() => {
-        fetch("http://localhost:3030/restorent/seller/" + foodId, {
+        fetch("https://bitebuddy-rgzf.onrender.com/restorent/seller/" + foodId, {
             headers: {
                 'Content-Type': 'application/json',
                 'authorization': `bearer ${token}`
@@ -37,7 +37,7 @@ export default function EditFood() {
         formData.append("foodImg", data.foodImg);
         formData.append("foodType", data.foodType);
 
-        const result = axios.put(`http://localhost:3030/restorent/seller/updatefood/${foodId}`,
+        const result = axios.put(`https://bitebuddy-rgzf.onrender.com/restorent/seller/updatefood/${foodId}`,
             formData,
             {
                 headers: {
@@ -52,14 +52,9 @@ export default function EditFood() {
 
     return (
         <>
-            <div id="foodData" style={{
-                color: "white",
-                height: "100vh",
-                width: "100%",
-            }}>
+            <div id="foodData">
                 <div id="food-details">
-                    <h1 style={{
-                    }}>Edit Food Details</h1>
+                    <h1 >Edit Food Details</h1>
                     <form action={`/updatefood/${foodId}`} method="PUT" enctype="multipart/form-data">
 
                         <div className="formIp">

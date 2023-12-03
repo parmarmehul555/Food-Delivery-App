@@ -12,13 +12,10 @@ export default function OneFood() {
     const count = useSelector(state => state.cartCount.count);
     const [orderFood, setOrderFood, countF, setCountF] = useGetCartFood();
     const [order, setOrder] = useState({});
-    // if (!localStorage.getItem("count")) {
-    //     localStorage.setItem("count", parseInt(0));
-    // }
 
     function handleOrder(data) {
         const token = localStorage.getItem("auth-token");
-        fetch("http://localhost:3030/food/auth/orderfood", {
+        fetch("https://bitebuddy-rgzf.onrender.com/food/auth/orderfood", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
@@ -44,11 +41,11 @@ export default function OneFood() {
 
     const formattedRestoFood = allfood.map((item) => {
         return (
-            <div key={item._id} class="card" style={{ marginTop: "2vh" }}>
+            <div key={item._id} class="card oneCardFood" style={{ marginTop: "2vh" }}>
                 <h5 class="card-header">{item.sellerName}</h5>
                 <div class="card-body oneCard" id="foodIdCard">
                     <div><img src={item.foodImg} alt="food img" /></div>
-                    <div>
+                    <div id="oneCardDetails">
                         <h5 class="card-title">{item.foodName}</h5>
                         <p class="card-text">{item.foodDescription}</p>
                         <p class="card-text">Rs. {item.foodPrice}/-</p>

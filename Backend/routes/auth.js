@@ -69,7 +69,7 @@ router.post('/login', async (req, res) => {
         console.log(payload);
 
         const token = jwt.sign(payload, JWT_SEC);
-        res.status(200).json({ token });
+        res.status(200).json({ isUser,token });
     } catch (error) {
         console.log("ERROR MSG : ", error);
     }

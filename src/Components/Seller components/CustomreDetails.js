@@ -7,16 +7,16 @@ export default function CustomerDetails() {
         return (
             <div className="row customerRow">
                 <div className="col">
-                    <p>{item.username}</p>
+                    <text id="food-product">{item.username}</text>
                 </div>
                 <div className="col">
-                    <p>{item.email}</p>
+                    <text id="food-product">{item.email}</text>
                 </div>
                 <div className="col">
-                    <p>{item.phNo}</p>
+                    <text id="food-product">{item.phNo}</text>
                 </div>
                 <div className="col">
-                    <p>{item.address}</p>
+                    <text id="food-product">{item.address}</text>
                 </div>
             </div>
         )
@@ -26,16 +26,16 @@ export default function CustomerDetails() {
             <div className="container-fluied text-center">
                 <div className="row">
                     <div className="col">
-                        <h4>User Name</h4>
+                        <h5>User Name</h5>
                     </div>
                     <div className="col">
-                        <h4>Email</h4>
+                        <h5>Email</h5>
                     </div>
                     <div className="col">
-                        <h4>Mobile number</h4>
+                        <h5>Mobile number</h5>
                     </div>
                     <div className="col">
-                        <h4>Address</h4>
+                        <h5>Address</h5>
                     </div>
                 </div>
                 {formattedCustomers}

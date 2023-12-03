@@ -5,7 +5,7 @@ function useGetCartFood() {
     const [count, setCount] = useState(0);
     const token = localStorage.getItem("auth-token");
     useEffect(() => {
-        fetch("http://localhost:3030/food/auth/orders", {
+        fetch("https://bitebuddy-rgzf.onrender.com/food/auth/orders", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

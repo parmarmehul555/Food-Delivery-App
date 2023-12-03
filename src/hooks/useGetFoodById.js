@@ -3,7 +3,7 @@ import { useState } from "react";
 function useGetFoodById(foodId) {
     const [data, setData] = useState({});
 
-    fetch('http://localhost:3030/restorent/seller/' + foodId, {
+    fetch('https://bitebuddy-rgzf.onrender.com/restorent/seller/' + foodId, {
         method: "GET",
         headers: {
             'Content-Type': 'application/json',

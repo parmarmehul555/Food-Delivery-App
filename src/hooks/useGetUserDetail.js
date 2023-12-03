@@ -5,7 +5,7 @@ function useGetUserDetail() {
     const token = localStorage.getItem("auth-token");
     const [user, setUser] = useState({});
     useEffect(() => {
-    fetch('http://localhost:3030/food/auth/user', {
+    fetch('https://bitebuddy-rgzf.onrender.com/food/auth/user', {
         method: "GET",
         headers: {
             'Content-Type': 'application/json',

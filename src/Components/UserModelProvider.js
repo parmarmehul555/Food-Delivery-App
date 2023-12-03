@@ -4,6 +4,7 @@ import userContext from "../context/userContext";
 import '../index.css';
 import { useState } from "react";
 import Swal from "sweetalert2";
+import useGetUserDetail from "../hooks/useGetUserDetail";
 
 export default function UserModelProvider(props) {
     const { user, setUser } = useContext(userContext);
@@ -13,7 +14,7 @@ export default function UserModelProvider(props) {
     const [passValid, setPassValid] = useState(false);
 
     function login() {
-        fetch('http://localhost:3030/food/auth/login', {
+        fetch('https://bitebuddy-rgzf.onrender.com/food/auth/login', {
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
@@ -37,11 +38,12 @@ export default function UserModelProvider(props) {
             .catch((error) => {
                 console.error("Error during login:", error);
             });
-        setToken(localStorage.getItem("auth-token"))
+        setToken(localStorage.getItem("auth-token"));
+        console.log("user from event is ",user);
     }
 
     function signup() {
-        fetch('http://localhost:3030/food/auth/signup', {
+        fetch('https://bitebuddy-rgzf.onrender.com/food/auth/signup', {
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
@@ -80,7 +82,7 @@ export default function UserModelProvider(props) {
                 props.isLogin ?
                     <div className="login-box">
                         <h2 >Log in</h2>
-                        <p id="wrongInputMsg">Invalid email or password</p>
+                        <p id="wrongInputMsg" style={{ color: "red" }}>Invalid email or password</p>
                         <div className="ip-box">
                             <i class="fa-solid fa-envelope" style={{ color: "white" }}></i>
                             <input type="text" id="email" placeholder="email" className="ip-style" onChange={(e) => {
@@ -220,7 +222,7 @@ export default function UserModelProvider(props) {
                         </div>
 
                         <div className="ip-box">
-                        <i class="fa-solid fa-phone"></i>
+                            <i class="fa-solid fa-phone"></i>
                             <input type="text" id="numberUser" placeholder="Phone number" className="ip-style" onChange={(e) => {
                                 const number = document.getElementById('numberUser').value;
                                 const icon = document.getElementById("check");
@@ -328,7 +330,7 @@ export default function UserModelProvider(props) {
                         </div>
 
                         <div className="ip-box">
-                        <i class="fa-solid fa-house"></i>
+                            <i class="fa-solid fa-house"></i>
                             <input type="text" id="address" placeholder="Address" className="ip-style" onChange={(e) => {
                                 const icon = document.getElementById("check");
                                 icon.style.color = "green";

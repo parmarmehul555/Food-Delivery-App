@@ -19,18 +19,14 @@ export default function AddFood(props) {
         formData.append("type", data.type);
         console.log(formData.get("price"));
 
-        const result = axios.post('http://localhost:3030/restorent/seller/fooddetails', formData, { headers: { 'Content-Type': 'multipart/form-data', 'authorization': `bearer ${token}` } })
+        const result = axios.post('https://bitebuddy-rgzf.onrender.com/restorent/seller/fooddetails', formData, { headers: { 'Content-Type': 'multipart/form-data', 'authorization': `bearer ${token}` } })
     }
 
     return (
         <>
-            <div id="foodData" style={{
-                color: "white",
-                height: "100vh",
-                width: "100%",
-            }}>
+            <div id="foodData" >
                 <div id="food-details">
-                    <h1 style={{textAlign:"center"}}>Add Food Details</h1>
+                    <h1 style={{ textAlign: "center" }}>Add Food Details</h1>
                     <form action="/restorent/seller/fooddetails" method="POST" enctype="multipart/form-data" onSubmit={(e) => {
                         handleData(e);
                         const input_box = document.getElementsByClassName("input-value");

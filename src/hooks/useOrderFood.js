@@ -4,7 +4,7 @@ function useOrderFood(data) {
     const [order, setOrder] = useState({});
     const token = localStorage.getItem("auth-token");
     useEffect(() => {
-        fetch("http://localhost:3030/food/auth/orderfood", {
+        fetch("https://bitebuddy-rgzf.onrender.com/food/auth/orderfood", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {

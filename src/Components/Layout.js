@@ -38,6 +38,22 @@ export default function Layout() {
                         <nav className="navbar navbar-expand-lg bg-body-tertiary">
                             <div className="container-fluid">
                                 <a className="navbar-brand" href="#">BityBuddy</a>
+
+                                <Link to={'/food/foocart'}>
+                                    <div className='mx-3'>
+                                        {
+                                            token ?
+                                                <button type="button" class="btn position-relative">
+                                                    <i class="fa-solid fa-cart-shopping"></i>
+                                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger my-1">
+                                                        {localStorage.getItem("count")}
+                                                        {/* {cartCount} */}
+                                                    </span>
+                                                </button>
+                                                : ""
+                                        }
+                                    </div>
+                                </Link>
                                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="navbar-toggler-icon"></span>
                                 </button>
@@ -52,8 +68,22 @@ export default function Layout() {
                                         <li className="nav-item">
                                             <Link to={'/seller/signup'} className="nav-link" href="#">Become a seller</Link>
                                         </li>
+                                        <li className="nav-item">
+                                            <div className='mx-2 nav-link' style={{ cursor: "pointer" }}>
+                                                {
+                                                    token ?
+                                                        <>
+                                                            <div className='userInfo'>
+                                                                <i className="fa-solid fa-user mx-2"></i>
+                                                                <text className='userInfo'>{user.username}</text>
+                                                            </div>
+                                                        </>
+                                                        : ""
+                                                }
+                                            </div>
+                                        </li>
                                     </ul>
-                                    {location.pathname == '/user' ?<> <form className="d-flex" >
+                                    {location.pathname == '/user' ? <> <form className="d-flex" >
                                         <input className="form-control me-2" type="text" placeholder="Search" aria-label="Search" id='searchBtn' onChange={(e) => {
                                             e.preventDefault();
                                             dispatch(getAllFood(food.filter((item) => (item.foodName).toLowerCase().includes((e.target.value)))))
@@ -70,30 +100,6 @@ export default function Layout() {
                                         }} />
                                         <button className="btn btn-outline-success" >Search</button>
                                     </form></> : ""}
-                                    <div className='mx-2' style={{ cursor: "pointer" }}>
-                                        {
-                                            token ?
-                                                <div className='userInfo'>
-                                                    <i className="fa-solid fa-user mx-2"></i>
-                                                    <text>{user.username}</text>
-                                                </div>
-                                                : ""
-                                        }
-                                    </div>
-                                    <Link to={'/food/foocart'}>
-                                        <div className='mx-3'>
-                                            {
-                                                token ?
-                                                    <button type="button" class="btn position-relative">
-                                                        <i class="fa-solid fa-cart-shopping"></i>
-                                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger my-1">
-                                                            {cartCount}
-                                                        </span>
-                                                    </button>
-                                                    : ""
-                                            }
-                                        </div>
-                                    </Link>
                                     <div className='mx-2'>
                                         {token ? <button className='btn btn-outline-danger' onClick={() => {
                                             localStorage.clear();
