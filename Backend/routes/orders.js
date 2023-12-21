@@ -72,16 +72,34 @@ orderRouter.get('/yourcustomers', sellerLogedIn, async (req, res) => {
         let index = 0;
 
         const temp = await DiliveredOrder.distinct('customerId');
-        console.log("============",temp);
-        
+        console.log("============", temp);
+
         for (let id of temp) {
             console.log(id);
             const value = await User.findOne({ _id: id });
             data.push(value);
         }
-        console.log("+++++++++++++=",data);
+        console.log("+++++++++++++=", data);
         res.status(200).send(data);
     } catch (error) {
+        return res.status(500).json({ "ERROR ": "Internal server error: ", error });
+    }
+})
+
+//Update food count and information according to its count
+orderRouter.put('/updateFoodCount/:foodId', userLogedIn, async (req, res) => {
+    try {
+        // const food = await Order.findOneAndUpdate({ _id: req.params.foodId }, { foodCount: parseInt(Order.foodCount + 1) });
+        const food = await Order.findOne({ _id: req.params.foodId });
+        if(!food) return res.status(400).json({"ERROR ":"Data not found!"});
+        food.foodCount = food.foodCount+1;
+        food.totalFoodAmount += food.foodPrice;
+        await food.save();
+        console.log("=====",food.foodCount);
+        res.status(200).send(food);
+    } catch (error) {
+
+        console.log("errror is ",error)
         return res.status(500).json({ "ERROR ": "Internal server error: ", error });
     }
 })

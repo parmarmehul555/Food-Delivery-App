@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
 import { incrementCartCount } from "../features/cartCountSlice";
 import useGetOneFood from "../hooks/useGetOneFood";
 import useGetCartFood from "../hooks/useGetCartFood";
+import foodContext from "../context/foodContext";
 
 export default function OneFood() {
     const dispatch = useDispatch();
@@ -49,10 +50,7 @@ export default function OneFood() {
                         <h5 class="card-title">{item.foodName}</h5>
                         <p class="card-text">{item.foodDescription}</p>
                         <p class="card-text">Rs. {item.foodPrice}/-</p>
-                        <button class="btn btn-primary" onClick={() => {
-                            console.log(item.foodName);
-                            console.log(item.foodPrice);
-                            console.log(restoName);
+                        <button className="btn btn-danger mx-2">-</button><button class="btn btn-primary" onClick={() => {
                             const data = {
                                 foodName: item.foodName,
                                 foodPrice: item.foodPrice,
@@ -60,12 +58,13 @@ export default function OneFood() {
                                 foodImg: item.foodImg
                             }
                             handleOrder(data);
+                            console.log(item._id);
                             // setFood({ foodName: item.foodName, foodPrice: item.foodPrice, restorentName: restoName });
                             // dispatch(incrementCartCount(1));
                             localStorage.setItem("count", parseInt(count) + 1);
                             setCountF(localStorage.getItem("count"));
                             dispatch(incrementCartCount(1));
-                        }}>Add</button>
+                        }}>Add</button><button className="btn btn-success mx-2">+</button>
                     </div>
                 </div>
             </div>

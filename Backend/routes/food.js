@@ -4,7 +4,6 @@ const Seller = require('../modals/Seller');
 const router = express.Router();
 const sellerLogedIn = require('../middleware/sellerLogedIn');
 const upload = require('../middleware/multer');
-// const upload = require('../temp/imgs');
 const uploadCloudinary = require('../middleware/cloudinary');
 const path = require('path');
 const userLogedIn = require('../middleware/userLogedIn');

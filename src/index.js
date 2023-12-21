@@ -18,6 +18,8 @@ import SellerFoodContextProvider from './context/SellerFoodContextProvider';
 import ChangeFood from './Components/Seller components/ChangeFood';
 import EditFood from './Components/Seller components/EditFood';
 import CustomerDetails from './Components/Seller components/CustomreDetails';
+import Profile from './Components/Profile';
+import FoodContextProvider from './context/FoodContextProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -39,6 +41,7 @@ root.render(
             <Route path='/seller/addfooddata' element={<AddFood />} />
             <Route path='/seller/:foodId' element={<EditFood />} />
             <Route path='/seller/yourcustomers' element={<CustomerDetails/>}/>
+            <Route path='/user/profile' element={<Profile/>}/>
           </Route>
         </Routes>
       </UserContextProvider>

@@ -29,6 +29,11 @@ const deliveredOrderSchema = mongoose.Schema({
     count: {
         type: Number,
         default: 0
+    },
+    foodItem: {
+        type: Number,
+        default: 0,
+        required: true
     }
 }, { timestamps: true });
 

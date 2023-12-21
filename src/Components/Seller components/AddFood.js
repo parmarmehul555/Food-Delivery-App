@@ -40,29 +40,29 @@ export default function AddFood() {
                     }}>
 
                         <div className="formIp">
-                            <input className="ipField" type="text" placeholder="Food Name" value={data.foodName} onChange={(e) => {
+                            <input className="ipField input-value" type="text" placeholder="Food Name" value={data.foodName} onChange={(e) => {
                                 setData({ ...data, name: e.target.value })
                             }} />
                         </div>
                         <div className="formIp">
-                            <input className="ipField" type="text" placeholder="Food Price" value={data.foodPrice} onChange={(e) => {
+                            <input className="ipField input-value" type="text" placeholder="Food Price" value={data.foodPrice} onChange={(e) => {
                                 setData({ ...data, price: e.target.value })
                             }} />
                         </div>
                         <div className="formIp">
-                            <textarea className="ipField" placeholder="Food Description" value={data.foodDescription} onChange={(e) => {
+                            <textarea className="ipField input-value" placeholder="Food Description" value={data.foodDescription} onChange={(e) => {
                                 setData({ ...data, description: e.target.value })
                             }} ></textarea>
                         </div>
                         <div className="formIp">
-                            <input className="ipField" type="file" name="img" placeholder="Food Image" onChange={(e) => {
+                            <input className="ipField input-value" type="file" name="img" placeholder="Food Image" onChange={(e) => {
                                 const temp = e.target.files[0];
                                 console.log("AVB In form = ", temp);
                                 setData({ ...data, img: temp });
                             }} />
                         </div>
                         <div className="formIp">
-                            <input className="ipField" type="text" placeholder="Food Type" value={data.foodType} onChange={(e) => {
+                            <input className="ipField input-value" type="text" placeholder="Food Type" value={data.foodType} onChange={(e) => {
                                 setData({ ...data, type: e.target.value })
                             }} />
                         </div>

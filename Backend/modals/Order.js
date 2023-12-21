@@ -25,6 +25,16 @@ const orderSchema = mongoose.Schema({
     foodImg: {
         type: String,
         required:true
+    },
+    foodCount:{
+        type:Number,
+        required:true,
+        default: 0
+    },
+    totalFoodAmount:{
+        type:Number,
+        required:true,
+        default:0
     }
     // customerAddress: {
     //     type: String,

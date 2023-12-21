@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation, useNavigate, } from 'react-router-dom';
-import '../index.css';
+    import '../index.css';
 import useGetUserDetail from '../hooks/useGetUserDetail';
 import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,6 +32,23 @@ export default function Layout() {
 
     return (
         <>
+            {location.pathname == '/user' ? <> <form className="d-flex" >
+                <input style={{marginTop:"1vh",marginBottom:"1vh",margin:"1vh"}} className="form-control me-2" type="text" placeholder="Search" aria-label="Search" id='searchBtn' onChange={(e) => {
+                    e.preventDefault();
+                    dispatch(getAllFood(food.filter((item) => (item.foodName).toLowerCase().includes((e.target.value)))))
+                }} onKeyUp={(e) => {
+                    e.preventDefault();
+                    if (e.key === "Backspace") {
+                        let search = temp[0].filter((item) => ((item.foodName).toLowerCase()).includes(e.target.value));
+                        console.log("key ", search)
+                        dispatch(getAllFood(search));
+                    }
+                    if (e.target.value === "") {
+                        dispatch(getAllFood(temp[0]));
+                    }
+                }} />
+                <button style={{marginTop:"1vh",marginBottom:"1vh",margin:"1vh"}}  className="btn btn-outline-success" >Search</button>
+            </form></> : ""}
             {
                 localStorage.getItem("auth-token") ?
                     <>
@@ -46,8 +63,8 @@ export default function Layout() {
                                                 <button type="button" class="btn position-relative">
                                                     <i class="fa-solid fa-cart-shopping"></i>
                                                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger my-1">
-                                                        {localStorage.getItem("count")}
-                                                        {/* {cartCount} */}
+                                                        {/* {localStorage.getItem("count")} */}
+                                                        {cartCount}
                                                     </span>
                                                 </button>
                                                 : ""
@@ -75,7 +92,7 @@ export default function Layout() {
                                                         <>
                                                             <div className='userInfo'>
                                                                 <i className="fa-solid fa-user mx-2"></i>
-                                                                <text className='userInfo'>{user.username}</text>
+                                                                <text className='userInfo'><Link to={'/user/profile'}>{user.username}</Link></text>
                                                             </div>
                                                         </>
                                                         : ""
@@ -83,23 +100,7 @@ export default function Layout() {
                                             </div>
                                         </li>
                                     </ul>
-                                    {location.pathname == '/user' ? <> <form className="d-flex" >
-                                        <input className="form-control me-2" type="text" placeholder="Search" aria-label="Search" id='searchBtn' onChange={(e) => {
-                                            e.preventDefault();
-                                            dispatch(getAllFood(food.filter((item) => (item.foodName).toLowerCase().includes((e.target.value)))))
-                                        }} onKeyUp={(e) => {
-                                            e.preventDefault();
-                                            if (e.key === "Backspace") {
-                                                let search = temp[0].filter((item) => ((item.foodName).toLowerCase()).includes(e.target.value));
-                                                console.log("key ", search)
-                                                dispatch(getAllFood(search));
-                                            }
-                                            if (e.target.value === "") {
-                                                dispatch(getAllFood(temp[0]));
-                                            }
-                                        }} />
-                                        <button className="btn btn-outline-success" >Search</button>
-                                    </form></> : ""}
+
                                     <div className='mx-2'>
                                         {token ? <button className='btn btn-outline-danger' onClick={() => {
                                             localStorage.clear();

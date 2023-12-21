@@ -18,13 +18,16 @@ export default function Home() {
                         <text id="food-product">{item.foodName}</text>
                     </div>
                     <div className="col">
+                        <text id="food-product"><img src={item.foodImg} style={{width:"150px"}}/></text>
+                    </div>
+                    <div className="col">
                         <text id="food-product">{item.foodDescription}</text>
                     </div>
                     <div className="col">
                         <text id="food-product">{item.foodType}</text>
                     </div>
                     <div className="col">
-                        <text id="food-product">{item.foodPrice}</text>
+                        <text id="food-product"><i class="fa-solid fa-indian-rupee-sign"></i> {item.foodPrice} /-</text>
                     </div>
                     <div className="col">
                         <h5><i class="fa-solid fa-pen text-success cursor" onClick={() => {
@@ -76,6 +79,9 @@ export default function Home() {
             <div className="row">
                 <div className="col text-light">
                     <h5>Name</h5>
+                </div>
+                <div className="col text-light">
+                    <h5>Image</h5>
                 </div>
                 <div className="col text-light">
                     <h5>Description</h5>
