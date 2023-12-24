@@ -7,12 +7,19 @@ import useGetCartFood from "../hooks/useGetCartFood";
 import foodContext from "../context/foodContext";
 
 export default function OneFood() {
+    let [tempCount,setTempCount] = useState(0);
     const dispatch = useDispatch();
     const { restoName } = useParams();
     const [allfood] = useGetOneFood(restoName);
     const count = useSelector(state => state.cartCount.count);
     const [orderFood, setOrderFood, countF, setCountF] = useGetCartFood();
     const [order, setOrder] = useState({});
+
+    function displayCount(id){
+        const ele = document.getElementById(`${id}`);
+        setTempCount(tempCount+1);
+        ele.innterText = tempCount;
+    }
 
     function handleOrder(data) {
         const token = localStorage.getItem("auth-token");
@@ -50,21 +57,18 @@ export default function OneFood() {
                         <h5 class="card-title">{item.foodName}</h5>
                         <p class="card-text">{item.foodDescription}</p>
                         <p class="card-text">Rs. {item.foodPrice}/-</p>
-                        <button className="btn btn-danger mx-2">-</button><button class="btn btn-primary" onClick={() => {
+                        <button class="btn btn-primary" onClick={() => {
                             const data = {
                                 foodName: item.foodName,
                                 foodPrice: item.foodPrice,
                                 restorentName: restoName,
-                                foodImg: item.foodImg
+                                foodImg: item.foodImg,
                             }
                             handleOrder(data);
-                            console.log(item._id);
-                            // setFood({ foodName: item.foodName, foodPrice: item.foodPrice, restorentName: restoName });
-                            // dispatch(incrementCartCount(1));
                             localStorage.setItem("count", parseInt(count) + 1);
                             setCountF(localStorage.getItem("count"));
                             dispatch(incrementCartCount(1));
-                        }}>Add</button><button className="btn btn-success mx-2">+</button>
+                        }} id={`${item._id}`}>Add</button>
                     </div>
                 </div>
             </div>

@@ -35,7 +35,7 @@ orderRouter.post('/orderfood', userLogedIn, async (req, res) => {
     myOrder.customerDetails = isUser.username;
 
     await myOrder.save();
-
+    console.log("++++++",myOrder);
     res.status(200).send([myOrder]);
 });
 
